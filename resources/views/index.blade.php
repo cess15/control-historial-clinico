@@ -61,16 +61,4 @@
   </div>
 </div>
 
-<!-- Contact Section -->
-<div class="w3-container w3-light-grey" style="padding:128px 16px" id="contact">
-  <h3 class="w3-center">¿Dónde nos encontramos?</h3>
-  <p class="w3-center w3-large">Puede contactarnos por estos medios:</p>
-  <div style="margin-top:48px">
-    <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i> By Pass y Calle "0" 120102 Babahoyo, Ecuador
-    </p>
-    <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i> Télefono: (05) 257-2066</p>
-    <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i> Correo electrónico: cafsi0307cmlr@gmail.com</p>
-    <br>
-  </div>
-</div>
 @endsection
