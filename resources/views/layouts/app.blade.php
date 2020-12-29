@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{{ asset('plugin/bootstrap/dist/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 <style>
   body,
   h1,
@@ -67,7 +67,7 @@
       </div>
       <!-- Right-sided navbar links -->
       <div class="w3-right w3-hide-small">
-        <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Iniciar Sesión</a>
+        <a href="{{ url('/login') }}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Iniciar Sesión</a>
       </div>
       <!-- Hide right-floated links on small screens and replace them with a menu icon -->
 
@@ -87,7 +87,7 @@
     <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">Nosotros</a>
     <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">Servicios</a>
     <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">Localización</a>
-    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button">Iniciar Sesión</a>
+    <a href="{{ url('/login') }}" onclick="w3_close()" class="w3-bar-item w3-button">Iniciar Sesión</a>
   </nav>
 
   <!-- Header with full-height image -->
@@ -177,7 +177,7 @@
       mySidebar.style.display = "none";
   }
   </script>
-  <script src="{{ asset('plugin/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('plugin/bootstrap/bootstrap.min.js') }}"></script>
   <script src="{{ asset('plugin/popper/popper.min.js') }}"></script>
 </body>
 
