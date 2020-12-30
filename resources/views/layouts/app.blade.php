@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+<link rel="stylesheet" href="/css/app.css">
 <style>
   body,
   h1,
@@ -177,8 +177,8 @@
       mySidebar.style.display = "none";
   }
   </script>
-  <script src="{{ asset('plugin/bootstrap/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('plugin/popper/popper.min.js') }}"></script>
+  <script src="/plugin/bootstrap/bootstrap.min.js"></script>
+  <script src="/plugin/popper/popper.min.js"></script>
 </body>
 
 </html>
