@@ -177,8 +177,8 @@
       mySidebar.style.display = "none";
   }
   </script>
-  <script src="{{ asset('plugin/bootstrap/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('plugin/popper/popper.min.js') }}"></script>
+  <script src="/plugin/bootstrap/bootstrap.min.js"></script>
+  <script src="/plugin/popper/popper.min.js"></script>
 </body>
 
 </html>
