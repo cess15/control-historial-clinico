@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Admin\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -15,8 +16,12 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'cedula', 'nombres', 'apellidos', 'usuario', 'email',
+        'password', 'telefono', 'imagen_perfil', 'url_imagen_perfil', 'genero', 'confirmed', 'confirmation_code', 'created_at', 'updated_at'
     ];
 
     /**
@@ -25,7 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'remember_token'
     ];
 
     /**
@@ -33,7 +38,13 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [
+    /*protected $casts = [
         'email_verified_at' => 'datetime',
-    ];
+    ];*/
+
+
+    public function rol()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
 }

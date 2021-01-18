@@ -1,6 +1,14 @@
-@extends('dashboard.layouts.app')
+@extends('layouts.app')
+
+@if(Auth::user()->role_id===1)
+@section('title', 'Administrador')
+@endif
+@if(Auth::user()->role_id==3)
+@section('title', 'Paciente')
+@endif
 
 @section('content')
+<p>Estas dentro pana {{$user->nombres.' '.$user->apellidos}} con tu Rol: {{ $user->rol->nombre}}</p>
 <!-- Small boxes (Stat box) -->
 <div class="row">
     <div class="col-lg-3 col-6">
