@@ -22,11 +22,6 @@
             <div class="w3-container" style="padding:26px 0px 16px 40px">
                 <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>Ir al
                     Inicio</a>
-                <div class="input-group mb-3 mt-5">
-                    <input type="text" class="form-control" placeholder="Email" aria-label="Recipient's username"
-                        aria-describedby="basic-addon2">
-                    <button class="btn btn-primary" id="suscribe_button">Suscríbete al boletín</span>
-                </div>
             </div>
         </div>
     </div>

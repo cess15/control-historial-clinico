@@ -14,8 +14,7 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->
-    <link rel="stylesheet"
-        href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- JQVMap -->
@@ -45,22 +44,29 @@
         <!-- Main Sidebar Container -->
         @include('theme.lte.aside')
 
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Dashboard</h1>
-                        </div><!-- /.col -->
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard v1</li>
+                                <li class="breadcrumb-item"><a href="{{ route('inicio')}}"
+                                        class="{{ Request::path() === 'inicio' ? 'breadcrumb-item active' : 'breadcrumb-item' }}">Mi
+                                        cuenta</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('user.edit',auth()->user()->id)}}"
+                                        class="{{ Request::path() === 'user/'.auth()->user()->id.'/edit' ? 'breadcrumb-item active' : 'breadcrumb-item' }}">Actualizar
+                                        Datos
+                                    </a>
+                                </li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
+                    
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
@@ -85,7 +91,6 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-
     <!-- jQuery -->
     <script src="/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->

@@ -15,17 +15,14 @@ class UsuarioSeeder extends Seeder
         return \DB::table('users')->insert([
             [
                 'role_id'=>1,
-                'cedula'=>'1206857375',
-                'nombres'=>'César Santos',
-                'apellidos'=>'Lata Jácome',
+                'nombres'=>'Andreina',
+                'apellidos'=>'Pérez',
                 'usuario'=>'admin',
-                'email'=>'cesarlata1@gmail.com',
+                'email'=>'pandreina25@yahoo.es',
+                'email_verified_at'=>'2021-01-10 20:37:29.456945-05',
                 'password'=>'$2y$12$ZhM5n8UreTdt2C3qbuaxweTSlKP89aTb714dYf8sQXAA5stHyTxaC',
-                'telefono'=>'0988561847',
-                'imagen_perfil'=>'',
-                'genero'=>'Masculino',
-                'confirmed'=>true,
-                'confirmation_code'=>'',
+                'telefono'=>'0963295489',
+                'genero'=>'Femenino',
                 'created_at'=>'2021-01-10 20:37:29.456945-05',
                 'updated_at'=>'2021-01-10 20:37:29.456945-05',
             ]

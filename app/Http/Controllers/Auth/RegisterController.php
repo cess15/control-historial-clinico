@@ -5,13 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 
 class RegisterController extends Controller
@@ -34,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::REGISTER;
+    protected $redirectTo = RouteServiceProvider::LOGIN;
 
     /**
      * Create a new controller instance.
@@ -60,24 +56,29 @@ class RegisterController extends Controller
             'usuario' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        ], $this->messages(), $this->attributes());
     }
 
-    public function register(Request $request)
+    protected function messages()
     {
-        $this->validator($request->all())->validate();
+        return [
+            'nombres.required' => 'El campo :attribute es obligatorio',
+            'apellidos.required' => 'El campo :attribute es obligatorio',
+            'usuario.required' => 'El capo :attribute es obligatorio',
+            'email.required' => 'El :attribute es obligatorio',
+            'password.required' => 'La :attribute es obligatoria'
+        ];
+    }
 
-        event(new Registered($user = $this->create($request->all())));
-
-        //$this->guard()->login($user);
-
-        if ($response = $this->registered($request, $user)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-                    ? new JsonResponse([], 201)
-                    : redirect($this->redirectPath());
+    protected function attributes()
+    {
+        return [
+            'nombres' => 'nombre',
+            'apellidos' => 'apellido',
+            'usuario' => 'nombre de usuario',
+            'email' => 'correo electrónico',
+            'password' => 'contraseña'
+        ];
     }
 
     /**
@@ -88,23 +89,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $data['confirmation_code'] = Str::random(25);
-        $data['confirmed']=false;
-
         $user = new User();
         $user->role_id = 3;
         $user->nombres = $data['nombres'];
         $user->apellidos = $data['apellidos'];
         $user->usuario = $data['usuario'];
         $user->email = $data['email'];
-        $user->password = bcrypt($data['password']);
-        $user->confirmed=$data['confirmed'];
-        $user->confirmation_code = $data['confirmation_code'];
-        Mail::send('email.confirmation', $data, function ($message) use ($data) {
-            $message->from('cafsisoporte@gmail.com');
-            $message->to($data['email']);
-            $message->subject('Confirmación de la cuenta CAFSI');
-        });
+        $user->password = Hash::make($data['password']);
         $user->save();
         return $user;
     }

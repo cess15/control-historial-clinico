@@ -3,12 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Contracts\Auth\PasswordBroker;
 
 class ForgotPasswordController extends Controller
 {
@@ -24,6 +20,8 @@ class ForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
+
+    protected $redirectTo = RouteServiceProvider::LOGIN;
 
     
 }

@@ -3,11 +3,13 @@
 namespace App;
 
 use App\Models\Admin\Role;
+use App\Notifications\CustomEmailNotification;
+use App\Notifications\Email;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -21,7 +23,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'cedula', 'nombres', 'apellidos', 'usuario', 'email',
-        'password', 'telefono', 'imagen_perfil', 'url_imagen_perfil', 'genero', 'confirmed', 'confirmation_code', 'created_at', 'updated_at'
+        'password', 'telefono', 'imagen_perfil', 'url_imagen_perfil', 'genero', 'created_at', 'updated_at'
     ];
 
     /**
@@ -38,13 +40,23 @@ class User extends Authenticatable
      *
      * @var array
      */
-    /*protected $casts = [
+    protected $casts = [
         'email_verified_at' => 'datetime',
-    ];*/
+    ];
 
 
     public function rol()
     {
         return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new Email($token));
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new CustomEmailNotification());
     }
 }

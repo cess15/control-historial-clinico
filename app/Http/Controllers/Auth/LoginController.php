@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::REGISTER;
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -48,8 +48,8 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validateLogin($request);
-        $userWithUsername=Auth::attempt(['usuario' => $request->usuario, 'password' => $request->password, 'confirmed'=>true]);
-        $userWithEmail=Auth::attempt(['email' => $request->usuario, 'password' => $request->password, 'confirmed'=>true]);
+        $userWithUsername=Auth::attempt(['usuario' => $request->usuario, 'password' => $request->password]);
+        $userWithEmail=Auth::attempt(['email' => $request->usuario, 'password' => $request->password]);
         
         if ($userWithUsername===true || $userWithEmail===true) 
         {
@@ -71,6 +71,6 @@ class LoginController extends Controller
     {
         Auth::logout();
         $request->session()->invalidate();
-        return redirect('/');
+        return redirect()->route('login');
     }
 }

@@ -5,15 +5,15 @@
     <div class="row justify-content-center">
         <div class="form">
             <h5 class="text-danger">Restablecer contraseña</h5>
-            <form method="POST" action="{{ route('password.reset') }}">
+            <form method="POST" action="{{ route('password.update') }}">
                 @csrf
                 <div class="form-group row">
                     <div class="col">
                         <input type="hidden" name="token" value="{{ $token }}">
-                        <input id="correo" type="email" class="form-control @error('correo') is-invalid @enderror"
-                            name="correo" value="{{ $correo ?? old('correo') }}" required autocomplete="correo"
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                            name="email" value="{{ $email ?? old('email') }}" required autocomplete="email"
                             autofocus placeholder="Correo electrónico">
-                        @error('correo')
+                        @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
