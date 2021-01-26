@@ -1,184 +1,130 @@
 <!DOCTYPE html>
-<html>
-<title>CAFSI | CLMR</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/app.css">
-<style>
-  body,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Raleway", sans-serif
-  }
+<html lang="{{ app()->getLocale() }}">
 
-  body,
-  html {
-    height: 100%;
-    line-height: 1.8;
-    background-color: whitesmoke;
-  }
+<head>
+    <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> @yield('title') | CAFSI</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/app.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- Styles -->
+    <link href="/css/style.css" rel="stylesheet">
 
-  /* Full height image header */
-  .bgimg-1 {
-    background-position: center;
-    background-size: cover;
-    background-image: url("img/photo-360622.jpg");
-    min-height: 100%;
-  }
+</head>
 
-  .bgimg-2 {
-    background-position: center;
-    background-size: cover;
-    background-image: url("img/photo-48604.jpg");
-    min-height: 100%;
-  }
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper" id="app">
 
-  .bgimg-3 {
-    background-position: center;
-    background-size: cover;
-    background-image: url("img/photo-4299436.jpg");
-    min-height: 100%;
-  }
+        <!-- Navbar -->
+        @include('theme.lte.header')
+        <!-- /.navbar -->
 
-  .w3-bar .w3-button {
-    padding: 16px;
-  }
-</style>
+        <!-- Main Sidebar Container -->
+        @include('theme.lte.aside')
 
-<body>
 
-  <!-- Navbar (sit on top) -->
-  <div class="w3-top">
-    <div class="w3-bar w3-green w3-card" id="myNavbar">
-      <a href="#home" class="w3-bar-item w3-wide"><img src="{{ asset('img/logoCAFSI.png') }}"
-          class="rounded mx-auto d-block" style="width:40px;"></a>
-      <div class="w3-left w3-hide-small">
-        <a href="#home" class="w3-bar-item w3-button">Inicio</a>
-        <a href="#about" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Nosotros</a>
-        <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i> Servicios</a>
-        <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-map-marker"></i> Localización</a>
-      </div>
-      <!-- Right-sided navbar links -->
-      <div class="w3-right w3-hide-small">
-        <a href="{{ url('/login') }}" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Iniciar Sesión</a>
-      </div>
-      <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-12">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="{{ route('inicio')}}"
+                                        class="{{ Request::path() === 'inicio' ? 'breadcrumb-item active' : 'breadcrumb-item' }}">Mi
+                                        cuenta</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('user.edit',auth()->user()->id)}}"
+                                        class="{{ Request::path() === 'user/'.auth()->user()->id.'/edit' ? 'breadcrumb-item active' : 'breadcrumb-item' }}">Actualizar
+                                        Datos
+                                    </a>
+                                </li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                    
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
 
-      <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
-        onclick="w3_open()">
-        <i class="fa fa-bars"></i>
-      </a>
-    </div>
-  </div>
-
-  <!-- Sidebar on small screens when clicking the menu icon -->
-  <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large"
-    style="display:none" id="mySidebar">
-    <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close
-      &times;</a>
-    <a href="#home" onclick="w3_close()" class="w3-bar-item w3-button">Inicio</a>
-    <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">Nosotros</a>
-    <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">Servicios</a>
-    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">Localización</a>
-    <a href="{{ url('/login') }}" onclick="w3_close()" class="w3-bar-item w3-button">Iniciar Sesión</a>
-  </nav>
-
-  <!-- Header with full-height image -->
-  <header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
-    <div class="w3-display-left w3-text-white" style="padding:48px">
-      <div class="container">
-        <h1><span class="w3-jumbo w3-hide-small w3-hide-medium text text-dark">Centro de Atención y Formación en Salud
-            Integral</span></h1>
-        <h1><span class="w3-jumbo w3-hide-small w3-hide-medium text text-dark">"Carlos Luis Morales Reina"</span></h1>
-      </div>
-      <h1><span class="w3-xxlarge w3-hide-large text text-dark">Centro de Atención y Formación en Salud Integral</span>
-      </h1>
-      <h1><span class="w3-xxlarge w3-hide-large text text-dark">"Carlos Luis Morales Reina"</span></h1>
-      <em><span class="w3-large text text-dark">Una opción, una alternativa para Usted y su familia.</span></em>
-      <p><a href="#about"
-          class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Conoce más
-          de nosotros</a></p>
-    </div>
-    <div class="w3-display-bottomleft w3-text-grey w3-large" style="padding:24px 48px">
-      <a href="https://www.facebook.com/CAFSICLMR"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
-      <a href="https://www.youtube.com/channel/UC3nWTALubXI8zgdjHG4EOuA"><i
-          class="fa fa-youtube w3-hover-opacity"></i></a>
-      <a href="https://twitter.com/CAFSI_CLMR"><i class="fa fa-twitter w3-hover-opacity"></i></a>
-    </div>
-  </header>
-
-  <div>
-    @yield('content')
-  </div>
-
-  <!-- Footer -->
-  <footer class="w3-black w3-padding-64">
-    <div class="row">
-      <div class="col-6 ml-5">
-        <!-- Contact Section -->
-        <div class="w3-container" style="padding:26px 0px 16px 40px" id="contact">
-          <h3>¿Dónde nos encontramos?</h3>
-          <p class="w3-large">Puede contactarnos por estos medios:</p>
-          <div style="margin-top:48px">
-            <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i> By Pass y Calle "0" 120102 Babahoyo,
-              Ecuador
-            </p>
-            <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i> Télefono: (05) 257-2066</p>
-            <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i> Correo electrónico:
-              cafsi0307cmlr@gmail.com</p>
-            <br>
-          </div>
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    @yield('content')
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
         </div>
-      </div>
-      <div class="col-4">
-        <div class="w3-container" style="padding:26px 0px 16px 40px">
-          <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>Ir al Inicio</a>
-          <div class="input-group mb-3 mt-5">
-            <input type="text" class="form-control" placeholder="Email" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <button class="btn btn-primary" id="suscribe_button">Suscríbete al boletín</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <p class="w3-center">Copyright ©2020-{{ date('Y')+1 }} All right Reserved | This web design was made with ♥ by
-      Andreina Pérez</p>
-  </footer>
+        <!-- /.content-wrapper -->
 
-  <script>
-    // Modal Image Gallery
-  function onClick(element) {
-    document.getElementById("img01").src = element.src;
-    document.getElementById("modal01").style.display = "block";
-    var captionText = document.getElementById("caption");
-    captionText.innerHTML = element.alt;
-  }
-  
-  
-  // Toggle between showing and hiding the sidebar when clicking the menu icon
-  var mySidebar = document.getElementById("mySidebar");
-  
-  function w3_open() {
-    if (mySidebar.style.display === 'block') {
-      mySidebar.style.display = 'none';
-    } else {
-      mySidebar.style.display = 'block';
-    }
-  }
-  
-  // Close the sidebar with the close button
-  function w3_close() {
-      mySidebar.style.display = "none";
-  }
-  </script>
-  <script src="/plugin/bootstrap/bootstrap.min.js"></script>
-  <script src="/plugin/popper/popper.min.js"></script>
+
+        @include('theme.lte.footer')
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="/plugins/moment/moment.min.js"></script>
+    <script src="/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/dist/js/adminlte.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="/dist/js/pages/dashboard.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/dist/js/demo.js"></script>
 </body>
 
 </html>

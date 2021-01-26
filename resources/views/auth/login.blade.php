@@ -1,35 +1,19 @@
-<!DOCTYPE html>
-<html>
-<title>CAFSI | CLMR</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/app.css">
-<link rel="stylesheet" href="/css/login.css">
-
-<body>
-    <div class="login-page">
-        <div class="form">
-            <form class="register-form">
-                <input type="text" placeholder="Nombres" />
-                <input type="password" placeholder="Contraseña" />
-                <input type="text" placeholder="Correo electrónico" />
-                <button>Registrarse</button>
-                <p class="message">¿Ya tiene una cuenta? <a href="#">Inicie sesión</a></p>
-            </form>
-            <form class="login-form">
-                <input type="text" placeholder="Nombre de usuario" />
-                <input type="password" placeholder="Contraseña" />
-                <button>Iniciar sesión</button>
-                <p class="message">¿No está registrado? <a href="#">Crear una cuenta</a></p>
-            </form>
-        </div>
+@extends('auth.app')
+@section('content')
+<div class="login-page">
+    <div class="form">
+        {!! Form::open( ['route' => ['login'], 'method'=>'POST']) !!}
+        {!! Form::token() !!}
+        <input id="usuario" type="text" value="{{ old('usuario') }}" name="usuario"
+            placeholder="Nombre de usuario o Correo" autofocus />
+        {!! $errors->first('usuario', '<span class="error text-danger">:message</span>') !!}
+        <input id="password" type="password" name="password" placeholder="Contraseña" />
+        {!! $errors->first('password', '<span class="error text-danger">:message</span>') !!}
+        <button type="submit">Iniciar sesión</button>
+        {!! Form::close() !!}
+        <p class="message">¿No está registrado? <a href="{{ route('register') }}">Crear una cuenta</a></p>
+        <p class="message"><a href="{{ route('password.request') }}">¿Olvidó su contraseña?</a></p>
+        <a href="{{ route('landing') }}"><button type="button" class="mt-3">Regresar</button></a>
     </div>
-    <script src="/plugins/jquery/jquery.min.js"></script>
-    <script src="/js/login.js"></script>
-    <script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
-</body>
-
-</html>
+</div>
+@endsection
