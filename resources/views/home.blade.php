@@ -8,7 +8,12 @@
 @endif
 @section('content')
 <div class="container">
-    <h3 class="m-0 text-dark text-center text-lg-center text-md-center text-sm-center text-xl-center">Perfil</h3>
-    <p>Bienvenido {{$user->nombres.' '.$user->apellidos}} con tu Rol: {{ $user->rol->nombre}}</p>
+    {{-- <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading"><b>!Bienvenido!</b></h4>
+        <p>Ha sido registrado correctamente, antes de continuar es importante que actualice sus datos. 
+            Por favor de click en el siguiente botón <b>"Actualizar mis datos"</b> que se muestra a continuación .</p>
+        <hr>
+        <a href="{{ route('perfil.edit') }}"><button type="button" class="btn btn-primary">Actualizar mis datos</button></a>
+    </div> --}}
 </div>
 @endsection

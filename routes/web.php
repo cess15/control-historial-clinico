@@ -30,7 +30,9 @@ Route::group(['middleware' => ['auth','verified']], function () {
 	//User auth
 	Route::post('/logout', 'Auth\LoginController@logout')->name('logout');	
 	Route::get('/inicio', 'HomeController@index')->name('inicio');
-	Route::get('/user/{id}/edit','UserController@edit')->name('user.edit');
+	Route::get('/perfil', 'ProfileController@index')->name('perfil');
+	Route::get('/perfil/editar','ProfileController@edit')->name('perfil.edit');
+	Route::post('/perfil/{user}', 'ProfileController@update')->name('perfil.update');
 });
 
 Route::group(['middleware' => ['administrator']], function () {
@@ -38,7 +40,6 @@ Route::group(['middleware' => ['administrator']], function () {
 		return 'Hola';
 	});
 });
-//Route::get('/register/verify/{confirmation_code}', 'ConfirmationController@verify')->name('email.verification');
 
 
 

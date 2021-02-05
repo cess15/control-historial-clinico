@@ -14,14 +14,8 @@
                 <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="{{ route('inicio')}}" class="d-block">
-                    @if(Str::contains($user->nombres,' ') && Str::contains($user->apellidos,' '))
-                    {{ Str::substr($user->nombres, 0, Str::length($user->nombres)/2).' '.Str::substr($user->apellidos, 0, Str::length($user->apellidos)/2) }}
-                    @endif
-                    @if(!Str::contains($user->nombres,' ') && !Str::contains($user->apellidos,' '))
-                    {{ $user->nombres.' '.$user->apellidos}}
-                    @endif
-
+                <a href="{{ route('perfil')}}" class="d-block">
+                    {{$name. ' '.$lastName}}
                 </a>
             </div>
         </div>

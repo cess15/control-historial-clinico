@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- JQVMap -->
     <link rel="stylesheet" href="/plugins/jqvmap/jqvmap.min.css">
+    <!-- Select 2 -->
+    <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/dist/css/adminlte.min.css">
     <!-- overlayScrollbars -->
@@ -50,22 +53,7 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-12">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="{{ route('inicio')}}"
-                                        class="{{ Request::path() === 'inicio' ? 'breadcrumb-item active' : 'breadcrumb-item' }}">Mi
-                                        cuenta</a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('user.edit',auth()->user()->id)}}"
-                                        class="{{ Request::path() === 'user/'.auth()->user()->id.'/edit' ? 'breadcrumb-item active' : 'breadcrumb-item' }}">Actualizar
-                                        Datos
-                                    </a>
-                                </li>
-                            </ol>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
+                    @yield('content-header')
                     
                 </div><!-- /.container-fluid -->
             </div>
@@ -93,14 +81,19 @@
     <!-- ./wrapper -->
     <!-- jQuery -->
     <script src="/plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
     <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Select 2 -->
+    <script src="/plugins/select2/js/select2.min.js"></script>
+    <!-- Bootstrap 4 Duallistbox -->
+    <script src="/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <!-- InputMask -->
+    <script src="/plugins/moment/moment.min.js"></script>
+    <script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <!-- ChartJS -->
     <script src="/plugins/chart.js/Chart.min.js"></script>
     <!-- Sparkline -->

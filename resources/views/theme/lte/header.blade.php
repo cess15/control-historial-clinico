@@ -25,17 +25,12 @@
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="fas fa-user-circle icon-profile"></i>
                 <span class="float-right mb-1 text-light text-sm">
-                    @if(Str::contains($user->nombres,' ') && Str::contains($user->apellidos,' '))
-                    {{ Str::substr($user->nombres, 0, Str::length($user->nombres)/2).' '.Str::substr($user->apellidos, 0, Str::length($user->apellidos)/2) }}
-                    @endif
-                    @if(!Str::contains($user->nombres,' ') && !Str::contains($user->apellidos,' '))
-                    {{ $user->nombres.' '.$user->apellidos}}
-                    @endif
+                    {{$name. ' '.$lastName}}
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
+                <a href="{{ route('perfil') }}" class="dropdown-item">
                     <i class="fa fa-user mr-2"></i> Perfil
                 </a>
                 <div class="dropdown-divider"></div>
