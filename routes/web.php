@@ -32,7 +32,8 @@ Route::group(['middleware' => ['auth','verified']], function () {
 	Route::get('/inicio', 'HomeController@index')->name('inicio');
 	Route::get('/perfil', 'ProfileController@index')->name('perfil');
 	Route::get('/perfil/editar','ProfileController@edit')->name('perfil.edit');
-	Route::post('/perfil/{user}', 'ProfileController@update')->name('perfil.update');
+	Route::post('/perfil/editar/{user}', 'ProfileController@update')->name('perfil.update');
+	Route::post('/perfil/editar/credentials/{user}', 'ProfileController@postCredentials')->name('perfil.credentials');
 });
 
 Route::group(['middleware' => ['administrator']], function () {

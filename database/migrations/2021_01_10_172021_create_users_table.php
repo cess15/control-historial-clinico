@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('usuario', 16);
             $table->string('email', 255);
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('updated')->default(0);
             $table->string('password');
             $table->string('telefono', 12)->nullable();
             $table->string('imagen_perfil', 255)->nullable();

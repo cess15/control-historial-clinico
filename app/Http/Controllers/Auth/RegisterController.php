@@ -64,8 +64,8 @@ class RegisterController extends Controller
         return [
             'nombres.required' => 'El campo :attribute es obligatorio',
             'apellidos.required' => 'El campo :attribute es obligatorio',
-            'usuario.required' => 'El capo :attribute es obligatorio',
-            'email.required' => 'El :attribute es obligatorio',
+            'usuario.required' => 'El campo :attribute es obligatorio',
+            'email.required' => 'El campo :attribute es obligatorio',
             'password.required' => 'La :attribute es obligatoria'
         ];
     }

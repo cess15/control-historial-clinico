@@ -23,7 +23,8 @@
         <!-- Account Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="fas fa-user-circle icon-profile"></i>
+                <img src="{{ Auth::user()->url_imagen_perfil }}"
+                    alt="{{ Auth::user()->imagen_perfil }}" width="30px" height="30px">
                 <span class="float-right mb-1 text-light text-sm">
                     {{$name. ' '.$lastName}}
                 </span>
