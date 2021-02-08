@@ -24,7 +24,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <img src="{{ Auth::user()->url_imagen_perfil }}"
-                    alt="{{ Auth::user()->imagen_perfil }}" width="30px" height="30px">
+                    alt="{{ Auth::user()->imagen_perfil }}" class="img-circle elevation-2 img_profile" width="30px" height="30px">
                 <span class="float-right mb-1 text-light text-sm">
                     {{$name. ' '.$lastName}}
                 </span>

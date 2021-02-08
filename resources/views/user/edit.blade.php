@@ -63,12 +63,12 @@
                 <div class="col-lg-3">
                     <div class="user_profile">
                         <div class="user-pro-img">
-                            <img src="{{ Auth::user()->url_imagen_perfil }}" id="img_loader"
-                                class="img_profile" width="180px" height="180px"
-                                alt="foto_perfil">
-                            <div class="add-dp" id="OpenImgUpload">
-                                <input type="file" id="file_picture_user" name="imagen_perfil" />
+                            <img src="{{ Auth::user()->url_imagen_perfil }}" id="img_loader" class="img_profile"
+                                width="180px" height="180px" alt="foto_perfil">
+                            <div class="add-dp">
                                 <label for="file_picture_user"><i class="fa fa-camera"></i></label>
+                                <input type="file" id="file_picture_user" name="imagen_perfil" />
+                                <input hidden id="id" value="{{ Auth::user()->id }}" name="id" />
                             </div>
                         </div>
                     </div>
@@ -190,3 +190,6 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script src="{{ asset('assets/js/profile.js') }}"></script>
+@endpush
