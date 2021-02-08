@@ -17,7 +17,7 @@
 </body>
 <script src="https://kit.fontawesome.com/0db7df2fff.js" crossorigin="anonymous"></script>
 <script src="/assets/lte/plugins/jquery/jquery.min.js"></script>
-<script src="/assets/js/login.js"></script>
+{{-- <script src="/assets/js/login.js"></script> --}}
 <script src="/assets/lte/plugins/bootstrap/js/bootstrap.min.js"></script>
 
 </html>

@@ -167,6 +167,7 @@ return [
          */
         Laraveles\Spanish\SpanishServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        Tavo\EcLaravelValidator\EcValidatorServiceProvider::class,
 
         /*
          * Application Service Providers...

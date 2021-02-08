@@ -2,12 +2,6 @@
 
 namespace App\Traits;
 
-use Illuminate\Http\Request;
-use App\Services\FirebaseService;
-use App\User;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
-
 trait SplitNamesAndLastNames
 {
     /* Método para obtener primer nombre */
@@ -108,18 +102,5 @@ trait SplitNamesAndLastNames
         $firstLastName = mb_convert_case($firstLastName, MB_CASE_TITLE, 'UTF-8');
         $secondLastName  = mb_convert_case($secondLastName, MB_CASE_TITLE, 'UTF-8');
         return $firstLastName;
-    }
-
-    public function postAvatar(Request $request)
-    {
-        $storage = new FirebaseService;
-        $file = $request->file('imagen_perfil');
-        $nameFile = $file->getClientOriginalName();
-        $token = Str::random(30);
-        $replaceName = Str::replaceArray($nameFile, [$token], $nameFile);
-        $file->move(public_path() . '/foto/', $file->getClientOriginalName());
-        $data = ['name' => $replaceName . '.' . $file->getClientOriginalExtension(), 'url' => 'https://storage.googleapis.com/' . config('services.firebase.bucket') . '/clinica/' . $replaceName . '.' . $file->getClientOriginalExtension()];
-        $storage->firebase->upload(fopen(public_path() . '/foto/' . $file->getClientOriginalName(), 'r'), ['predefinedAcl' => 'publicRead', 'name' => 'clinica/' . $replaceName . '.' . $file->getClientOriginalExtension()]);
-        return $data;
     }
 }

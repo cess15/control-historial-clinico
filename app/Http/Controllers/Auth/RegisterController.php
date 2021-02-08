@@ -94,6 +94,9 @@ class RegisterController extends Controller
         $user->nombres = $data['nombres'];
         $user->apellidos = $data['apellidos'];
         $user->usuario = $data['usuario'];
+        $user->updated = false;
+        $user->imagen_perfil='user_logo.png';
+        $user->url_imagen_perfil='/foto/user_logo.png';
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
         $user->save();

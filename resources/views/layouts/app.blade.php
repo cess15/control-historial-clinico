@@ -9,6 +9,9 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/assets/css/app.css">
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="/assets/lte/plugins/fontawesome-free/css/all.min.css">
+
     <!-- Tempusdominus Bbootstrap 4 -->
     {{-- <link rel="stylesheet" href="/assets/lte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"> --}}
     <!-- iCheck -->
@@ -76,8 +79,6 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/0db7df2fff.js" crossorigin="anonymous"></script>
     <!-- jQuery -->
     <script src="/assets/lte/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->

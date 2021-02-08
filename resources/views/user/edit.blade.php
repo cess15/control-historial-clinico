@@ -40,7 +40,7 @@
         <h5><i class="icon fas fa-exclamation-triangle"></i>Error</h5>
         <ul>
             @foreach ($errors->all() as $error)
-            @if($error == 'validation.ecuador')
+            @if($error)
             <li>La cédula no es válida</li>
             @else
             <li> {{ $error }} </li>

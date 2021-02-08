@@ -38,7 +38,6 @@ class ProfileController extends Controller
         if ($validate->fails()) {
             return redirect()->back()->withInput()->withErrors($validate->errors());
         }
-        $avatar = $this->postAvatar($request);
         $user->cedula = $request->cedula;
         $user->nombres = $request->nombres;
         $user->apellidos = $request->apellidos;
@@ -46,9 +45,7 @@ class ProfileController extends Controller
         $user->telefono = $request->telefono;
         $user->genero = $request->genero;
         $user->usuario = $request->usuario;
-        $user->imagen_perfil = $avatar['name'];
-        $user->url_imagen_perfil = $avatar['url'];
-
+        
         if (!empty($request->password)) {
             $user->password = bcrypt($request->password);
         }
