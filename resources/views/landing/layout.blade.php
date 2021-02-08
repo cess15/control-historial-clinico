@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="{{ asset('assets/css/app.css')}}">
+<link rel="stylesheet" href="/assets/css/app.css">
 <style>
     body,
     h1,
@@ -28,21 +28,21 @@
     .bgimg-1 {
         background-position: center;
         background-size: cover;
-        background-image: url("assets/img/photo-360622.jpg");
+        background-image: url("/assets/img/photo-360622.jpg");
         min-height: 100%;
     }
 
     .bgimg-2 {
         background-position: center;
         background-size: cover;
-        background-image: url("assets/img/photo-48604.jpg");
+        background-image: url("/assets/img/photo-48604.jpg");
         min-height: 100%;
     }
 
     .bgimg-3 {
         background-position: center;
         background-size: cover;
-        background-image: url("assets/img/photo-4299436.jpg");
+        background-image: url("/assets/img/photo-4299436.jpg");
         min-height: 100%;
     }
 
@@ -82,8 +82,8 @@
     }
     </script>
     <script src="https://kit.fontawesome.com/0db7df2fff.js" crossorigin="anonymous"></script>
-    <script src="{{ asset('assets/lte/plugins/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/lte/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="/assets/lte/plugins/jquery/jquery.min.js"></script>
+    <script src="/assets/lte/plugins/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 
