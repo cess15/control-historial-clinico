@@ -15,16 +15,16 @@ class CreateConsultasTable extends Migration
     {
         Schema::create('consultas', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('informe_id')->nullable();
+            $table->unsignedInteger('historia_clinica_id')->nullable();
             $table->unsignedInteger('medico_id')->nullable();
             $table->text('diagnostico');
             $table->text('recomendacion');
             $table->string('observacion',255);
             $table->timestamps();
 
-            $table->foreign('informe_id')
+            $table->foreign('historia_clinica_id')
                 ->references('id')
-                ->on('informes')
+                ->on('historia_clinica')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             

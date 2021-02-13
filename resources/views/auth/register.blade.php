@@ -83,8 +83,15 @@
                     <i class="fas fa-key"></i>
                 </div>
             </div>
-
         </div>
+        <div class="input-group mb-3">
+            {!! NoCaptcha::display() !!}
+        </div>
+        @if ($errors->has('g-recaptcha-response'))
+        <span class="help-block text-danger" role="alert">
+            <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+        </span>
+        @endif
         <button type="submit">Registrarse</button>
         <p class="message">¿Ya tiene una cuenta? <a href="{{ route('login') }}">Inicie sesión</a></p>
         {!! Form::close() !!}

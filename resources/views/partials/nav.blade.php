@@ -1,7 +1,7 @@
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
     <div class="w3-bar w3-green w3-card" id="myNavbar">
-        <a href="#home" class="w3-bar-item w3-wide"><img src="{{ asset('img/logoCAFSI.png') }}"
+        <a href="#home" class="w3-bar-item w3-wide"><img src="/assets/img/logoCAFSI.png"
                 class="rounded mx-auto d-block" style="width:40px;"></a>
         <div class="w3-left w3-hide-small">
             <a href="#home" class="w3-bar-item w3-button">Inicio</a>

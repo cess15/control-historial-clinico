@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="/css/app.css">
+<link rel="stylesheet" href="/assets/css/app.css">
 <style>
     body,
     h1,
@@ -28,21 +28,21 @@
     .bgimg-1 {
         background-position: center;
         background-size: cover;
-        background-image: url("img/photo-360622.jpg");
+        background-image: url("/assets/img/photo-360622.jpg");
         min-height: 100%;
     }
 
     .bgimg-2 {
         background-position: center;
         background-size: cover;
-        background-image: url("img/photo-48604.jpg");
+        background-image: url("/assets/img/photo-48604.jpg");
         min-height: 100%;
     }
 
     .bgimg-3 {
         background-position: center;
         background-size: cover;
-        background-image: url("img/photo-4299436.jpg");
+        background-image: url("/assets/img/photo-4299436.jpg");
         min-height: 100%;
     }
 
@@ -52,9 +52,9 @@
 </style>
 
 <body>
-    
+
     @yield('content')
-    
+
     <script>
         // Modal Image Gallery
     function onClick(element) {
@@ -82,8 +82,8 @@
     }
     </script>
     <script src="https://kit.fontawesome.com/0db7df2fff.js" crossorigin="anonymous"></script>
-    <script src="/plugins/jquery/jquery.min.js"></script>
-    <script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/lte/plugins/jquery/jquery.min.js"></script>
+    <script src="/assets/lte/plugins/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 

@@ -64,8 +64,8 @@ class RegisterController extends Controller
         return [
             'nombres.required' => 'El campo :attribute es obligatorio',
             'apellidos.required' => 'El campo :attribute es obligatorio',
-            'usuario.required' => 'El capo :attribute es obligatorio',
-            'email.required' => 'El :attribute es obligatorio',
+            'usuario.required' => 'El campo :attribute es obligatorio',
+            'email.required' => 'El campo :attribute es obligatorio',
             'password.required' => 'La :attribute es obligatoria'
         ];
     }
@@ -94,6 +94,9 @@ class RegisterController extends Controller
         $user->nombres = $data['nombres'];
         $user->apellidos = $data['apellidos'];
         $user->usuario = $data['usuario'];
+        $user->updated = false;
+        $user->imagen_perfil='user_logo.png';
+        $user->url_imagen_perfil='/foto/user_logo.png';
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
         $user->save();

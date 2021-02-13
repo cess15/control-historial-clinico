@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use App\Traits\SplitNamesAndLastNames;
 
 class HomeController extends Controller
 {
+    use SplitNamesAndLastNames;
     /**
      * Create a new controller instance.
      *
@@ -14,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','verified']);
+        $this->middleware(['auth', 'verified']);
     }
 
     /**
@@ -24,8 +27,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = User::with(['rol'])->findOrFail(Auth::user()->id);
-        return view('home', compact('user'));
-        
+        return view('home', [ 'name' => $this->splitName(Auth::user()->nombres), 'lastName'=> $this->splitLastName(Auth::user()->apellidos)]);
     }
 }
