@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Medico;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Traits\SplitNamesAndLastNames;
+use Yajra\DataTables\Facades\DataTables;
 
 class HomeController extends Controller
 {
@@ -27,6 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home', [ 'name' => $this->splitName(Auth::user()->nombres), 'lastName'=> $this->splitLastName(Auth::user()->apellidos)]);
+        return view('home', ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
+    
 }

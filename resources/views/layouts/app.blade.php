@@ -8,31 +8,26 @@
     <title> @yield('title') | CAFSI</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/app.css">
+    <link rel="stylesheet" href="{{ asset('/assets/css/app.css') }}">
     <!-- Font awesome -->
-    <link rel="stylesheet" href="/assets/lte/plugins/fontawesome-free/css/all.min.css">
-
-    <!-- Tempusdominus Bbootstrap 4 -->
-    {{-- <link rel="stylesheet" href="/assets/lte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"> --}}
-    <!-- iCheck -->
-    {{-- <link rel="stylesheet" href="/assets/lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css"> --}}
-    <!-- JQVMap -->
-    {{-- <link rel="stylesheet" href="/assets/lte/plugins/jqvmap/jqvmap.min.css"> --}}
-    <!-- Select 2 -->
-    {{-- <link rel="stylesheet" href="/assets/lte/plugins/select2/css/select2.min.css"> --}}
-    {{-- <link rel="stylesheet" href="/assets/lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> --}}
+    <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="/assets/lte/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="{{ ('/assets/lte/dist/css/adminlte.min.css') }}">
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="/assets/lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Daterange picker -->
-    {{-- <link rel="stylesheet" href="/assets/lte/plugins/daterangepicker/daterangepicker.css"> --}}
-    <!-- summernote -->
-    {{-- <link rel="stylesheet" href="/assets/lte/plugins/summernote/summernote-bs4.css"> --}}
+    <link rel="stylesheet" href="{{ ('/assets/lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- Styles -->
-    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/style.css') }}" rel="stylesheet">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-autofill/css/autoFill.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-select/css/select.bootstrap4.min.css')}}">
+    <link rel="stylesheet"
+        href="{{ asset('/assets/lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-select/css/select.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/select2/css/select2.min.css')}}">
+
 
 
 </head>
@@ -54,7 +49,7 @@
             <div class="content-header">
                 <div class="container-fluid">
                     @yield('content-header')
-                    
+
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
@@ -80,42 +75,22 @@
     </div>
     <!-- ./wrapper -->
     <!-- jQuery -->
-    <script src="/assets/lte/plugins/jquery/jquery.min.js"></script>
+    <script src="{{ asset('/assets/lte/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
-    <script src="/assets/lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Select 2 -->
-    {{-- <script src="/assets/lte/plugins/select2/js/select2.min.js"></script> --}}
-    <!-- Bootstrap 4 Duallistbox -->
-    {{-- <script src="/assets/lte/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script> --}}
-    <!-- InputMask -->
-    {{-- <script src="/assets/lte/plugins/moment/moment.min.js"></script> --}}
-    {{-- <script src="/assets/lte/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script> --}}
-    <!-- ChartJS -->
-    {{-- <script src="/assets/lte/plugins/chart.js/Chart.min.js"></script> --}}
-    <!-- Sparkline -->
-    {{-- <script src="/assets/lte/plugins/sparklines/sparkline.js"></script> --}}
-    <!-- JQVMap -->
-    {{-- <script src="/assets/lte/plugins/jqvmap/jquery.vmap.min.js"></script> --}}
-    {{-- <script src="/assets/lte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script> --}}
-    <!-- jQuery Knob Chart -->
-    {{-- <script src="/assets/lte/plugins/jquery-knob/jquery.knob.min.js"></script> --}}
-    <!-- daterangepicker -->
-    {{-- <script src="/assets/lte/plugins/moment/moment.min.js"></script> --}}
-    {{-- <script src="/assets/lte/plugins/daterangepicker/daterangepicker.js"></script> --}}
-    <!-- Tempusdominus Bootstrap 4 -->
-    {{-- <script src="assets/lte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script> --}}
-    <!-- Summernote -->
-    {{-- <script src="/assets/lte/plugins/summernote/summernote-bs4.min.js"></script> --}}
-    <!-- overlayScrollbars -->
-    {{-- <script src="/assets/lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script> --}}
+    <script src="{{ asset('/assets/lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- DataTables -->
+    <script src="{{ asset('assets/lte/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('assets/lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('assets/lte/plugins/datatables-autofill/js/dataTables.autoFill.min.js')}}"></script>
+    <script src="{{ asset('assets/lte/plugins/datatables-select/js/dataTables.select.min.js')}}"></script>
+    <script src="{{ asset('assets/lte/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{ asset('assets/lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('assets/lte/plugins/datatables-select/js/select.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('assets/lte/plugins/select2/js/select2.min.js')}}"></script>
     <!-- AdminLTE App -->
-    <script src="/assets/lte/dist/js/adminlte.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    {{-- <script src="{{ asset('assets/lte/dist/js/demo.js') }}"></script> --}}
+    <script src="{{ asset('/assets/lte/dist/js/adminlte.js') }}"></script>
     <!-- My script -->
     @stack('scripts')
-    
-    
 </body>
 
 </html>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Especialidad;
 use App\Traits\SplitNamesAndLastNames;
 use App\User;
 use Illuminate\Http\Request;

@@ -19,7 +19,10 @@
         "laravel/ui": "^2.4",
         "laravelcollective/html": "^6.2",
         "laraveles/spanish": "^1.5",
-        "tavo1987/laravel-ec-validator": "^2.0"
+        "tavo1987/laravel-ec-validator": "^2.0",
+        "yajra/laravel-datatables": "^1.5",
+        "yajra/laravel-datatables-html": "^4.0",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

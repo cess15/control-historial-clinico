@@ -3,6 +3,9 @@
 @if(Auth::user()->role_id===1)
 @section('title', 'Administrador')
 @endif
+@if(Auth::user()->role_id==2)
+@section('title', 'Medico')
+@endif
 @if(Auth::user()->role_id==3)
 @section('title', 'Paciente')
 @endif
