@@ -36,10 +36,13 @@ Route::group(['middleware' => ['auth','verified']], function () {
 	Route::post('/perfil/editar/credentials/{user}', 'ProfileController@postCredentials')->name('perfil.credentials');
 });
 
-Route::group(['middleware' => ['administrator']], function () {
-	Route::get('/send', function () {
-		return 'Hola';
-	});
+Route::group(['middleware' => ['auth','administrator']], function () {
+	Route::get('/medicos/all','MedicoController@findAll')->name('medicos.data');
+	Route::get('/registrar','MedicoController@create')->name('medicos.create');
+	Route::post('/registrar','MedicoController@store')->name('medicos.store');
+	Route::get('/editar/{medico}','MedicoController@edit')->name('medicos.edit');
+	Route::get('/eliminar/{medico}','MedicoController@delete')->name('medicos.delete');
+	Route::post('/editar/{medico}','MedicoController@update')->name('medicos.update');
 });
 
 

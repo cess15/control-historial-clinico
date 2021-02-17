@@ -2,6 +2,9 @@
 @if(Auth::user()->role_id===1)
 @section('title', 'Administrador')
 @endif
+@if(Auth::user()->role_id==2)
+@section('title', 'Medico')
+@endif
 @if(Auth::user()->role_id==3)
 @section('title', 'Paciente')
 @endif
@@ -113,7 +116,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        {{ Form::label('genero', 'Gémero(*)') }}
+                        {{ Form::label('genero', 'Género(*)') }}
                         <select name="genero" class="form-control">
                             <option selected disabled>-- Seleccione --</option>
                             <option value="Masculino" {{ Auth::user()->genero==='Masculino' ? 'selected' : ''}}>

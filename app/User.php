@@ -8,6 +8,7 @@ use App\Notifications\Email;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Medico;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -48,6 +49,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function rol()
     {
         return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function medico()
+    {
+        return $this->hasOne(Medico::class, 'usuario_id');
     }
 
     public function sendPasswordResetNotification($token)
