@@ -2,9 +2,6 @@
 @if(Auth::user()->role_id===1)
 @section('title', 'Administrador')
 @endif
-@if(Auth::user()->role_id==3)
-@section('title', 'Paciente')
-@endif
 @section('content')
 <div class="container">
     <div class="row mb-2">
@@ -22,13 +19,17 @@
         </ul>
     </div>
     @endif
-    @if (count($errors) > 0)
+    @if ($errors->any())
     <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h5><i class="icon fas fa-exclamation-triangle"></i>Error</h5>
         <ul>
-            @foreach ($errors->all() as $error)
-            <li> {{ $error }} </li>
+            @foreach($errors->all() as $error)
+            @if($error=='validation.ecuador')
+            <li>Cédula no válida</li>
+            @else
+            <li>{{ $error }}</li>
+            @endif
             @endforeach
         </ul>
     </div>
@@ -79,14 +80,8 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         {{ Form::label('genero', 'Género(*)') }}
-                        <select name="genero" class="form-control">
-                            <option selected disabled>-- Seleccione --</option>
-                            <option value="Masculino">
-                                Masculino</option>
-                            <option value="Femenino">
-                                Femenino</option>
-                        </select>
-
+                        {!! Form::select('genero', ['--Seleccione--','Masculino'=>'Masculino','Femenino'=>'Femenino'],
+                        null, ['class'=>'form-control']) !!}
                     </div>
                 </div>
             </div>
@@ -95,7 +90,7 @@
                     <div class="form-group">
                         {{ Form::label('especialidad_id', 'Especialidad(*)') }}
                         <select name="especialidad_id" class="form-control">
-                            <option selected disabled>-- Seleccione --</option>
+                            <option value="0">-- Seleccione --</option>
                             @foreach ($especialidades as $especialidad)
                             <option value="{{$especialidad->id}}">
                                 {{$especialidad->name}}</option>

@@ -26,14 +26,17 @@
     <link rel="stylesheet"
         href="{{ asset('/assets/lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/datatables-select/css/select.bootstrap4.min.css')}}">
+    {{-- Select2 --}}
     <link rel="stylesheet" href="{{ asset('/assets/lte/plugins/select2/css/select2.min.css')}}">
 
-
+    <!-- Bootstrap Date-Picker Plugin -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    
 
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper" id="app">
+    <div class="wrapper">
 
         <!-- Navbar -->
         @include('theme.lte.header')
@@ -56,9 +59,7 @@
 
             <!-- Main content -->
             <section class="content">
-                <div class="container-fluid">
-                    @yield('content')
-                </div><!-- /.container-fluid -->
+                @yield('content')
             </section>
             <!-- /.content -->
         </div>
@@ -77,7 +78,9 @@
     <!-- jQuery -->
     <script src="{{ asset('/assets/lte/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
-    <script src="{{ asset('/assets/lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('/assets/lte/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+
     <!-- DataTables -->
     <script src="{{ asset('assets/lte/plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{ asset('assets/lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
@@ -86,6 +89,7 @@
     <script src="{{ asset('assets/lte/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{ asset('assets/lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('assets/lte/plugins/datatables-select/js/select.bootstrap4.min.js')}}"></script>
+    {{-- Select2 --}}
     <script src="{{ asset('assets/lte/plugins/select2/js/select2.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('/assets/lte/dist/js/adminlte.js') }}"></script>

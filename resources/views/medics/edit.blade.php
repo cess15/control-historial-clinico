@@ -2,9 +2,6 @@
 @if(Auth::user()->role_id===1)
 @section('title', 'Administrador')
 @endif
-@if(Auth::user()->role_id==3)
-@section('title', 'Paciente')
-@endif
 @section('content')
 <div class="container">
     @if(session('msg'))
