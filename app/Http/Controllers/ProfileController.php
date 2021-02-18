@@ -28,13 +28,21 @@ class ProfileController extends Controller
     public function update(Request $request, User $user)
     {
         $validate = Validator::make($request->all(), [
-            'cedula' => ['required', 'ecuador:ci', 'unique:users,cedula,' . Auth::user()->id],
+            'cedula' => ['required','ecuador:ci', 'unique:users,cedula,' . Auth::user()->id],
             'nombres' => 'required',
             'apellidos' => 'required',
             'email' => ['required', 'unique:users,email,' . Auth::user()->id],
             'telefono' => ['required', 'unique:users,telefono,' . Auth::user()->id],
-            'genero' => 'required',
+            'genero' => 'not_in:0',
             'usuario' => ['required', 'unique:users,usuario,' . Auth::user()->id],
+        ],[
+            'cedula.ecuador' => 'validation.ecuador', 
+            'nombres.required' => 'El valor del campo :attribute es requerido',
+            'apellidos.required' => 'El valor del campo :attribute es requerido',
+            'email.required' => 'El valor del campo :attribute es requerido',
+            'telefono.required' => 'El valor del campo :attribute es requerido',
+            'genero.not_in' => 'El valor del campo :attribute seleccionado no es el correcto',
+            'usuario.required' => 'El valor del campo :attribute es requerido',
         ]);
         if ($validate->fails()) {
             return redirect()->back()->withInput()->withErrors($validate->errors());

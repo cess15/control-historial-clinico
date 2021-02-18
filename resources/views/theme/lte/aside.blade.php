@@ -1,5 +1,4 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    @if(Auth::user())
     <!-- Brand Logo -->
     <a href="{{ route('inicio')}}" class="brand-link">
         <img src="{{ asset('assets/img/24691611025869019.png') }}" alt="CAFSI Logo"
@@ -20,9 +19,7 @@
                     {{$name. ' '.$lastName}}
                 </a>
             </div>
-            @endif
         </div>
-        @if(Auth::user())
         @if(Auth::user()->updated)
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -41,15 +38,26 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('citas.index') }}"
+                        class="{{ Request::path() === 'citas' ? 'nav-link active' : 'nav-link' }}">
+                        <i class="nav-icon fa fa-calendar-alt"></i>
+                        <p>
+                            Citas
+                            <?php $count=App\Cita::all()->count();?>
+                            <span class="right badge badge-info">{{ $count?? '0' }}</i>
+                        </p>
+                    </a>
+                </li>
                 @endif
 
                 @if(Auth::user()->role_id==2)
                 <li class="nav-item">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <a href="{{ route('inicio') }}"
+                        class="{{ Request::path() === 'inicio' ? 'nav-link active' : 'nav-link' }}">
+                        <i class="nav-icon fa fa-calendar-alt"></i>
                         <p>
-                            Dashboard
-                            <i class="right fas fa-angle-left"></i>
+                            Consultas
                         </p>
                     </a>
                 </li>
@@ -57,51 +65,18 @@
 
                 @if(Auth::user()->role_id==3)
                 <li class="nav-item">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <a href="{{ route('inicio') }}"
+                        class="{{ Request::path() === 'inicio' ? 'nav-link active' : 'nav-link' }}">
+                        <i class="nav-icon fa fa-calendar-alt"></i>
                         <p>
-                            Dashboard
-                            <i class="right fas fa-angle-left"></i>
+                            Citas Reservadas
                         </p>
                     </a>
                 </li>
                 @endif
-
-                <li class="nav-item">
-                    @if(Auth::user()->role_id==2)
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Widgets
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                    @endif
-                </li>
-
-                <li class="nav-header">LABELS</li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-danger"></i>
-                        <p class="text">Important</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Warning</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon far fa-circle text-info"></i>
-                        <p>Informational</p>
-                    </a>
-                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
-        @endif
         @endif
     </div>
     <!-- /.sidebar -->

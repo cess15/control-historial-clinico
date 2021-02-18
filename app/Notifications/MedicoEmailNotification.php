@@ -6,19 +6,22 @@ use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class CustomEmailNotification extends VerifyEmail
+class MedicoEmailNotification extends VerifyEmail
 {
     use Queueable;
+
+    public $usuario;
+    public $password;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-
-    public function __construct()
+    public function __construct($usuario,$password)
     {
-    
+        $this->usuario=$usuario;
+        $this->password=$password;
     }
 
     /**
@@ -42,6 +45,10 @@ class CustomEmailNotification extends VerifyEmail
     {
         return (new MailMessage)
             ->subject('Verificación de correo electrónico')
+            ->line('Por favor intente acceder al sistema con sus credenciales para verificar sus datos en el sistema y después intente verificar su correo')
+            ->line('Nombre de usuario: '.$this->usuario)
+            ->line('Contraseña: '.$this->password)
+            ->line('')
             ->line('Haga clic en el botón de abajo para verificar su dirección de correo electrónico.')
             ->action('Verificar correo electrónico', $this->verificationUrl($notifiable))
             ->line('')

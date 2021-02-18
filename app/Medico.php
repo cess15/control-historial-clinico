@@ -25,4 +25,9 @@ class Medico extends Model
     {
         return $this->belongsTo(User::class, 'usuario_id');
     }
+
+    public function cita()
+    {
+        return $this->hasOne(Cita::class,'medico_id');
+    }
 }

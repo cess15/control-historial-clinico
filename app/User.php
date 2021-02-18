@@ -6,9 +6,11 @@ use App\Models\Admin\Role;
 use App\Notifications\CustomEmailNotification;
 use App\Notifications\Email;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Medico;
+use App\Notifications\MedicoEmailNotification;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -45,6 +47,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function createUserName()
+    {
+        $nick = Str::substr($this->attributes['nombres'], 2, 6);
+        $lastNick = Str::substr($this->attributes['cedula'], 5, 9);
+        $fullNick = $nick . '' . $lastNick;
+        return Str::replaceFirst(' ', '', $fullNick);
+    }
+
 
     public function rol()
     {
@@ -63,6 +73,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new CustomEmailNotification());
+        $this->notify(new CustomEmailNotification);
     }
+
 }
