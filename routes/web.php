@@ -64,6 +64,8 @@ Route::group(['middleware'=>['auth','verified','paciente']],function(){
 	//Paciente
 	Route::get('/reservar/cita','CitaController@reservarCita')->name('citas.reservar');
 	Route::get('/reservar/cita/{cita}','CitaController@infoCita')->name('citas.info');
+	Route::post('/perfil/paciente/','PacienteController@store')->name('pacientes.store');
+	Route::post('/perfil/paciente/{paciente}','PacienteController@update')->name('pacientes.update');
 
 });
 

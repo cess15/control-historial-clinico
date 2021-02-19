@@ -113,8 +113,6 @@
                     <h1 class="card-title">Bienvenido</h1>
                 </div>
                 <div class="card-body">
-                    <h5><strong>Nombre:</strong> {{ $name }} {{ $lastName }}</h5>
-                    <h5><strong>Nombre de usuario:</strong> {{ Auth::user()->usuario }}</h5>
                     <h3><em>Ha sido registrado correctamente, antes de continuar es importante que actualice sus datos.
                             Por favor de click en el siguiente enlace, <b><a href="{{route('perfil.edit')}}">"Actualizar
                                     mis datos"</a></b>.</em></h3>

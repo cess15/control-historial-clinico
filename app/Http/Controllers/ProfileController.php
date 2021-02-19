@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Especialidad;
+use App\Paciente;
 use App\Traits\SplitNamesAndLastNames;
 use App\User;
 use Illuminate\Http\Request;
@@ -28,15 +29,15 @@ class ProfileController extends Controller
     public function update(Request $request, User $user)
     {
         $validate = Validator::make($request->all(), [
-            'cedula' => ['required','ecuador:ci', 'unique:users,cedula,' . Auth::user()->id],
+            'cedula' => ['required', 'ecuador:ci', 'unique:users,cedula,' . Auth::user()->id],
             'nombres' => 'required',
             'apellidos' => 'required',
             'email' => ['required', 'unique:users,email,' . Auth::user()->id],
             'telefono' => ['required', 'unique:users,telefono,' . Auth::user()->id],
             'genero' => 'not_in:0',
             'usuario' => ['required', 'unique:users,usuario,' . Auth::user()->id],
-        ],[
-            'cedula.ecuador' => 'validation.ecuador', 
+        ], [
+            'cedula.ecuador' => 'validation.ecuador',
             'nombres.required' => 'El valor del campo :attribute es requerido',
             'apellidos.required' => 'El valor del campo :attribute es requerido',
             'email.required' => 'El valor del campo :attribute es requerido',
@@ -54,13 +55,19 @@ class ProfileController extends Controller
         $user->telefono = $request->telefono;
         $user->genero = $request->genero;
         $user->usuario = $request->usuario;
-        
+
         if (!empty($request->password)) {
             $user->password = bcrypt($request->password);
         }
         $user->updated = true;
         $user->update();
         return redirect()->route('perfil.edit')->with('msg', 'Datos guardados correctamente');
+    }
+
+    public function updateInformation(Request $request, Paciente $paciente)
+    {
+        $paciente->direccion = $request->direccion;
+        dd($paciente);
     }
 
     public function postCredentials(Request $request, User $user)
@@ -75,8 +82,8 @@ class ProfileController extends Controller
             return redirect()->back()->withInput()->withErrors($validateCredentials->errors());
         }
 
-        if (Hash::check($request->password, Auth::user()->password)) {
-            $user->password = Hash::make($request->newPassword);
+        if (Hash::check($request->password, Auth::user()->password,['rounds'=>12])) {
+            $user->password = Hash::make($request->newpassword, ['rounds' => 12]);
             $user->updated = true;
             $user->save();
         }

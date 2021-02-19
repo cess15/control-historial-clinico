@@ -66,6 +66,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Medico::class, 'usuario_id');
     }
 
+    public function paciente()
+    {
+        return $this->hasOne(Paciente::class, 'usuario_id');
+    }
+
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new Email($token));
@@ -75,5 +80,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new CustomEmailNotification);
     }
-
 }
