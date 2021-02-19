@@ -24,6 +24,14 @@ class RoleSeeder extends Seeder
                 'id'=>3,
                 'nombre'=>'Paciente'
             ],
+            [
+                'id'=>4,
+                'nombre'=>'Secretaria'
+            ],
+            [
+                'id'=>5,
+                'nombre'=>'Cajero'
+            ],
         ]);
     }
 }

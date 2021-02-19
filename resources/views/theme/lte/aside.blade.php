@@ -12,7 +12,7 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <img src="{{ Auth::user()->url_imagen_perfil }}" class="img-circle elevation-2 img_profile"
-                    alt="{{ Auth::user()->imagen_perfil }}">
+                    alt="{{ Auth::user()->imagen_perfil }}" width="30px" height="30px">
             </div>
             <div class="info">
                 <a href="{{ route('perfil')}}" class="d-block">
@@ -24,8 +24,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-       with font-awesome or any other icon font library -->
+                {{-- Administrador --}}
                 @if(Auth::user()->role_id==1)
                 <li class="nav-item">
                     <a href="{{ route('inicio') }}"
@@ -38,19 +37,33 @@
                         </p>
                     </a>
                 </li>
+                
                 <li class="nav-item">
-                    <a href="{{ route('citas.index') }}"
-                        class="{{ Request::path() === 'citas' ? 'nav-link active' : 'nav-link' }}">
+                    <a href="{{ route('users.index') }}"
+                        class="{{ Request::path() === 'usuarios' ? 'nav-link active' : 'nav-link' }}">
+                        <i class="nav-icon fa fa-id-badge"></i>
+                        <p>
+                            Empleados
+                            <?php $count=App\User::where('role_id',4)->orWhere('role_id',5)->count();?>
+                            <span class="right badge badge-info">{{ $count?? '0' }}</i>
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('citaReservadas.index') }}"
+                        class="{{ Request::path() === 'citas/reservadas' ? 'nav-link active' : 'nav-link' }}">
                         <i class="nav-icon fa fa-calendar-alt"></i>
                         <p>
-                            Citas
-                            <?php $count=App\Cita::all()->count();?>
+                            Citas Reservadas
+                            <?php $count=App\CitaReservada::all()->count();?>
                             <span class="right badge badge-info">{{ $count?? '0' }}</i>
                         </p>
                     </a>
                 </li>
                 @endif
 
+                {{-- Médico --}}
                 @if(Auth::user()->role_id==2)
                 <li class="nav-item">
                     <a href="{{ route('inicio') }}"
@@ -63,6 +76,7 @@
                 </li>
                 @endif
 
+                {{-- Paciente --}}
                 @if(Auth::user()->role_id==3)
                 <li class="nav-item">
                     <a href="{{ route('inicio') }}"
@@ -70,6 +84,47 @@
                         <i class="nav-icon fa fa-calendar-alt"></i>
                         <p>
                             Citas Reservadas
+                            <?php $count=App\CitaReservada::where('paciente_id',Auth::user()->id)->count();?>
+                            <span class="right badge badge-info">{{ $count?? '0' }}</i>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('citas.reservar') }}"
+                        class="{{ Request::path() === 'reservar/cita' ? 'nav-link active' : 'nav-link' }}">
+                        <i class="nav-icon fa fa-calendar-alt"></i>
+                        <p>
+                            Reservar cita
+                        </p>
+                    </a>
+                </li>
+                @endif
+
+                {{-- Secretaria --}}
+                @if(Auth::user()->role_id==4)
+                <li class="nav-item">
+                    <a href="{{ route('inicio') }}"
+                        class="{{ Request::path() === 'inicio' ? 'nav-link active' : 'nav-link' }}">
+                        <i class="nav-icon fa fa-calendar-alt"></i>
+                        <p>
+                            Citas
+                            <?php $count=App\Cita::all()->count();?>
+                            <span class="right badge badge-info">{{ $count?? '0' }}</i>
+                        </p>
+                    </a>
+                </li>
+                @endif
+
+                {{-- Cajero --}}
+                @if(Auth::user()->role_id==5)
+                <li class="nav-item">
+                    <a href="{{ route('inicio') }}"
+                        class="{{ Request::path() === 'inicio' ? 'nav-link active' : 'nav-link' }}">
+                        <i class="nav-icon fa fa-calendar-alt"></i>
+                        <p>
+                            Citas Reservadas
+                            <?php $count=App\CitaReservada::all()->count();?>
+                            <span class="right badge badge-info">{{ $count?? '0' }}</i>
                         </p>
                     </a>
                 </li>

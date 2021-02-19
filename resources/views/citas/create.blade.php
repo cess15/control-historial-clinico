@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@if(Auth::user()->role_id===1)
-@section('title', 'Administrador')
+@if(Auth::user()->role_id==4)
+@section('title', 'Secretaria')
 @endif
 @section('content')
 <div class="container">
     <div class="row mb-2">
         <div class="col-md-6">
-            <a href="{{ route('citas.index')}}" class="btn btn-primary"><i class="fa fa-arrow-alt-circle-left"><span
+            <a href="{{ route('inicio')}}" class="btn btn-primary"><i class="fa fa-arrow-alt-circle-left"><span
                         class="ml-2">Regresar</span></i></a>
         </div>
     </div>

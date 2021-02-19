@@ -16,13 +16,13 @@ class ProfileController extends Controller
 
     public function index()
     {
-        return view('user.profile', ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+        return view('user.profile.index', ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
 
     public function edit()
     {
         $perfil = Auth::user();
-        return view('user.edit', ['user' => $perfil, 'name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+        return view('user.profile.edit', ['user' => $perfil, 'name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
 
     public function update(Request $request, User $user)
