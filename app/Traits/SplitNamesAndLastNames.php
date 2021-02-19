@@ -103,4 +103,12 @@ trait SplitNamesAndLastNames
         $secondLastName  = mb_convert_case($secondLastName, MB_CASE_TITLE, 'UTF-8');
         return $firstLastName;
     }
+
+    public function convertDate($date)
+    {
+        setLocale(LC_ALL, 'spanish_ecuador.utf-8');
+        $myDate = str_replace("/", "-", $date);
+        $newDate = date('d-m-Y H:i:s', strtotime($myDate));
+        return strftime('%A, %d de %B de %T %p', strtotime($newDate));
+    }
 }

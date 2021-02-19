@@ -3,12 +3,23 @@
 @if(Auth::user()->role_id===1)
 @section('title', 'Administrador')
 @endif
+
 @if(Auth::user()->role_id==2)
 @section('title', 'Medico')
 @endif
+
 @if(Auth::user()->role_id==3)
 @section('title', 'Paciente')
 @endif
+
+@if(Auth::user()->role_id==4)
+@section('title', 'Secretaria')
+@endif
+
+@if(Auth::user()->role_id==5)
+@section('title', 'Cajero')
+@endif
+
 @section('content-header')
 <div class="row mb-2">
     <div class="col-sm-12">

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Cita;
+use App\Especialidad;
+use App\Exceptions\GeneralExceptionError;
 use App\Medico;
 use App\Traits\SplitNamesAndLastNames;
 use App\User;
@@ -21,6 +23,18 @@ class CitaController extends Controller
         return view('citas.index', ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
 
+    public function reservarCita()
+    {
+        $especialidades = Especialidad::orderBy('name', 'ASC')->get();
+        return view('citas.reservar', compact('especialidades'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+    }
+
+    public function infoCita($id)
+    {
+        $especialidad = Especialidad::findOrFail($id);
+        return view('citas.info', compact('especialidad'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+    }
+
     public function create()
     {
         return view('citas.create', ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
@@ -28,8 +42,8 @@ class CitaController extends Controller
 
     public function edit($id)
     {
-        $cita=Cita::findOrFail($id);
-        return view('citas.edit',compact('cita'),['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+        $cita = Cita::findOrFail($id);
+        return view('citas.edit', compact('cita'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
 
 
@@ -39,7 +53,7 @@ class CitaController extends Controller
             'medico' => ['required', 'integer'],
             'dia' => ['not_in:0'],
             'hora' => ['required'],
-            'precio' => ['required', 'regex:/^\d{1,3}(?:\.\d\d\d)*(?:,\d{1,2})?$/'],
+            'precio' => ['required', 'numeric'],
         ]);
 
         if ($validate->fails()) {
@@ -48,7 +62,26 @@ class CitaController extends Controller
 
         $cita = new Cita();
         $cita->medico_id = $request->medico;
-        $cita->dia = $request->dia;
+
+        switch ($request->dia) {
+            case $request->dia == 'Lunes':
+                $cita->dia = $request->dia;
+                break;
+            case $request->dia == 'Martes':
+                $cita->dia = $request->dia;
+                break;
+            case $request->dia == 'Miércoles':
+                $cita->dia = $request->dia;
+                break;
+            case $request->dia == 'Jueves':
+                $cita->dia = $request->dia;
+                break;
+            case $request->dia == 'Viernes':
+                $cita->dia = $request->dia;
+                break;
+            default:
+                throw new GeneralExceptionError('El valor del campo dia seleccionado no es el correcto');
+        }
         $cita->hora = $request->hora;
 
         $precio = Str::replaceFirst(',', '.', $request->precio);
@@ -56,6 +89,57 @@ class CitaController extends Controller
         $cita->agendada = false;
         $cita->save();
         return redirect()->route('citas.create')->with('msg', 'Cupo asignado correctamente');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $cita = Cita::findOrFail($id);
+        $validate = Validator::make($request->all(), [
+            'medico' => ['required', 'integer'],
+            'dia' => ['not_in:0'],
+            'hora' => ['required'],
+            'precio' => ['required','numeric'],
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->back()->withInput()->withErrors($validate->errors());
+        }
+
+        $cita->medico_id = $request->medico;
+
+        switch ($request->dia) {
+            case $request->dia == 'Lunes':
+                $cita->dia = $request->dia;
+                break;
+            case $request->dia == 'Martes':
+                $cita->dia = $request->dia;
+                break;
+            case $request->dia == 'Miércoles':
+                $cita->dia = $request->dia;
+                break;
+            case $request->dia == 'Jueves':
+                $cita->dia = $request->dia;
+                break;
+            case $request->dia == 'Viernes':
+                $cita->dia = $request->dia;
+                break;
+            default:
+                throw new GeneralExceptionError('El valor del campo dia seleccionado no es el correcto');
+        }
+        $cita->hora = $request->hora;
+
+        $precio = Str::replaceFirst(',', '.', $request->precio);
+        $cita->precio = $precio;
+        $cita->agendada = false;
+        $cita->save();
+        return redirect()->route('citas.edit', $cita->id)->with('msg', 'Cupo actualizado correctamente');
+    }
+
+    public function delete($id)
+    {
+        $cita = Cita::findOrFail($id);
+        $cita->delete();
+        return redirect()->route('inicio');
     }
 
     public function searchMedic(Request $request)
@@ -74,9 +158,9 @@ class CitaController extends Controller
         $citas = Cita::orderBy('dia', 'ASC')->get();
         return DataTables::of($citas)
             ->addColumn('medico', function ($cita) {
-                if($cita->medico->user->nombres!=null && $cita->medico->user->apellidos!=null){
-                    return $cita->medico->user->nombres.' '.$cita->medico->user->apellidos;
-                }else{
+                if ($cita->medico->user->nombres != null && $cita->medico->user->apellidos != null) {
+                    return $cita->medico->user->nombres . ' ' . $cita->medico->user->apellidos;
+                } else {
                     return '';
                 }
             })
@@ -87,7 +171,7 @@ class CitaController extends Controller
                 return $cita->hora != null ? $cita->hora : '';
             })
             ->addColumn('precio', function ($cita) {
-                return $cita->precio != null ? $cita->precio : '';
+                return $cita->precio != null ? '$ ' . $cita->precio : '';
             })
             ->addColumn('agendada', function ($cita) {
                 if ($cita->agendada != false) {
@@ -106,13 +190,5 @@ class CitaController extends Controller
             ->addColumn('botones', 'citas.actions')
             ->rawColumns(['botones'])
             ->make(true);;
-    }
-
-    public function convertDate($date)
-    {
-        setLocale(LC_ALL, 'spanish_ecuador.utf-8');
-        $myDate = str_replace("/", "-", $date);
-        $newDate = date('d-m-Y H:i:s', strtotime($myDate));
-        return strftime('%A, %d de %B de %T %p', strtotime($newDate));
     }
 }

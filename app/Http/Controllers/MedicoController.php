@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Especialidad;
+use App\Exceptions\GeneralExceptionError;
 use App\Medico;
 use App\Notifications\MedicoEmailNotification;
 use App\Traits\SplitNamesAndLastNames;
@@ -33,7 +34,7 @@ class MedicoController extends Controller
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(), [
-            'cedula' => ['required','ecuador:ci', 'unique:users,cedula'],
+            'cedula' => ['required', 'ecuador:ci', 'unique:users,cedula'],
             'nombres' => 'required',
             'apellidos' => 'required',
             'email' => ['required', 'unique:users,email'],
@@ -41,7 +42,7 @@ class MedicoController extends Controller
             'genero' => 'not_in:0',
             'especialidad' => 'integer|not_in:0',
         ], [
-            'cedula.ecuador' => 'validation.ecuador', 
+            'cedula.ecuador' => 'validation.ecuador',
             'nombres.required' => 'El valor del campo :attribute es requerido',
             'apellidos.required' => 'El valor del campo :attribute es requerido',
             'email.required' => 'El valor del campo :attribute es requerido',
@@ -65,12 +66,23 @@ class MedicoController extends Controller
         $user->telefono = $request->telefono;
         $user->imagen_perfil = 'user_logo.png';
         $user->url_imagen_perfil = '/foto/user_logo.png';
-        $user->genero = $request->genero;
         $user->role_id = 2;
+
+        if (hash_equals($request->genero, 'Masculino') || hash_equals($request->genero, 'Femenino')) {
+            $user->genero = $request->genero;
+        } else {
+            throw new GeneralExceptionError('El valor del campo genero seleccionado no es el correcto');
+        }
+
+        if ($request->especialidad_id >= 1 && $request->especialidad_id <= 11) {
+            $medico->especialidad_id = $request->especialidad_id;
+        } else {
+            throw new GeneralExceptionError('El valor del campo especialidad seleccionado no es el correcto');
+        }
+
         $user->save();
-        $user->notify(new MedicoEmailNotification($user->usuario,$user->cedula));
+        $user->notify(new MedicoEmailNotification($user->usuario, $user->cedula));
         $medico->usuario_id = $user->id;
-        $medico->especialidad_id = $request->especialidad_id;
         $medico->save();
 
 
@@ -86,9 +98,10 @@ class MedicoController extends Controller
             'apellidos' => 'required',
             'email' => ['required', 'unique:users,email,' . $medico->user->id],
             'telefono' => ['required', 'unique:users,telefono,' . $medico->user->id],
-            'genero' => ['required','not_in:0'],
-            'especialidad' => ['integer','not_in:0'],
+            'genero' => ['required', 'not_in:0'],
+            'especialidad' => ['integer', 'not_in:0'],
         ]);
+        
         if ($validate->fails()) {
             return redirect()->back()->withInput()->withErrors($validate->errors());
         }
@@ -97,9 +110,20 @@ class MedicoController extends Controller
         $user->apellidos = $request->apellidos;
         $user->email = $request->email;
         $user->telefono = $request->telefono;
-        $user->genero = $request->genero;
+        
+        if (hash_equals($request->genero, 'Masculino') || hash_equals($request->genero, 'Femenino')) {
+            $user->genero = $request->genero;
+        } else {
+            throw new GeneralExceptionError('El valor del campo genero seleccionado no es el correcto');
+        }
+
+        if ($request->especialidad_id >= 1 && $request->especialidad_id <= 11) {
+            $medico->especialidad_id = $request->especialidad_id;
+        } else {
+            throw new GeneralExceptionError('El valor del campo especialidad seleccionado no es el correcto');
+        }
+        
         $user->update();
-        $medico->especialidad_id = $request->especialidad_id;
         $medico->usuario_id = $user->id;
         $medico->update();
         return redirect()->route('medicos.edit', $medico->id)->with('msg', 'Datos guardados correctamente');

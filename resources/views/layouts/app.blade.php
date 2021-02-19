@@ -79,8 +79,6 @@
     <script src="{{ asset('/assets/lte/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('/assets/lte/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-
     <!-- DataTables -->
     <script src="{{ asset('assets/lte/plugins/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{ asset('assets/lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>

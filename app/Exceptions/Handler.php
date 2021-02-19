@@ -50,6 +50,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof GeneralExceptionError) {
+            return $exception->render($request);
+        }
         return parent::render($request, $exception);
     }
 }
