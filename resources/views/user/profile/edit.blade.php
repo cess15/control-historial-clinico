@@ -198,7 +198,7 @@
                         {{ Form::label('estado_civil', 'Estado civil(*)') }}
                         {!! Form::select('estado_civil',
                         ['0'=>'--Seleccione--','Soltero'=>'Soltero','Casado'=>'Casado','Divorciado'=>'Divorciado',
-                        'Vuido'=>'Viudo'], $user->paciente->estado_civil, ['class'=>'form-control']) !!}
+                        'Viudo'=>'Viudo'], $user->paciente->estado_civil, ['class'=>'form-control']) !!}
                     </div>
                 </div>
             </div>
@@ -335,10 +335,11 @@
                         {{ Form::label('estado_civil', 'Estado civil(*)') }}
                         {!! Form::select('estado_civil',
                         ['0'=>'--Seleccione--','Soltero'=>'Soltero','Casado'=>'Casado','Divorciado'=>'Divorciado',
-                        'Vuido'=>'Viudo'], null, ['class'=>'form-control']) !!}
+                        'Viudo'=>'Viudo'], null, ['class'=>'form-control']) !!}
                     </div>
                 </div>
             </div>
+            {{-- Ocupacion y Fecha Nacimiento --}}
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -353,6 +354,7 @@
                     </div>
                 </div>
             </div>
+            {{-- Discapacidad --}}
             <div class="row">
                 <div class="col-md-6">
                     <!-- radio -->

@@ -22,7 +22,7 @@ class CreatePacientesTable extends Migration
             $table->string('ocupacion', 255);
             $table->string('direccion', 45);
             $table->string('ciudad', 45);
-            $table->enum('estado_civil', ['Soltero', 'Casado', 'Divorciado', 'Vuido'])->nullable();
+            $table->enum('estado_civil', ['Soltero', 'Casado', 'Divorciado', 'Viudo'])->nullable();
 
             $table->foreign('usuario_id')
                 ->references('id')
