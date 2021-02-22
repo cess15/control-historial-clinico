@@ -99,7 +99,7 @@ class RegisterController extends Controller
         $user->imagen_perfil='user_logo.png';
         $user->url_imagen_perfil='/foto/user_logo.png';
         $user->email = $data['email'];
-        $user->password = Hash::make($data['password']);
+        $user->password = Hash::make($data['password'],['rounds' => 12]);
         $user->save();
         return $user;
     }
