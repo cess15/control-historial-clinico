@@ -19,6 +19,7 @@ class Paciente
         if (Auth::user()->role_id == 3) {
             return $next($request);
         }
+
         return redirect('/inicio');
     }
 }

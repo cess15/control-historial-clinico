@@ -20,4 +20,9 @@ class Paciente extends Model
     {
         return $this->belongsTo(User::class, 'usuario_id');
     }
+
+    public function citaReservada()
+    {
+        return $this->hasOne(CitaReservada::class, 'paciente_id');
+    }
 }

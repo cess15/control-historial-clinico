@@ -7,7 +7,6 @@ use App\Especialidad;
 use App\Exceptions\GeneralExceptionError;
 use App\Medico;
 use App\Traits\SplitNamesAndLastNames;
-use App\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,21 +17,29 @@ class CitaController extends Controller
 {
     use SplitNamesAndLastNames;
 
-    public function index()
+    public function getEspecialidades()
     {
-        return view('citas.index', ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
-    }
-
-    public function reservarCita()
-    {
+        $especialidadesMedicos = Cita::join('medicos','medicos.id','citas.medico_id')->has('medico')->get();
         $especialidades = Especialidad::orderBy('name', 'ASC')->get();
-        return view('citas.reservar', compact('especialidades'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+        return view('citas.paciente.especialidad', compact('especialidades','especialidadesMedicos'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
 
-    public function infoCita($id)
+    public function getMedicoByEspecialidad($id)
     {
+        //Obtener especialidad por id
         $especialidad = Especialidad::findOrFail($id);
-        return view('citas.info', compact('especialidad'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+        //Obtener las citas con cupos asignados para un médico con su especialidad y que ya no este agendada
+        $citas = Cita::join('medicos', 'medicos.id', 'citas.medico_id')->where('medicos.especialidad_id', $especialidad->id)->where('agendada', false)->orderBy('dia', 'ASC')->has('medico')->get();
+        //Obtener medico por especialidad
+        $medicos = Medico::where('especialidad_id', $especialidad->id)->get();
+        return view('citas.paciente.medico', compact('especialidad', 'medicos', 'citas'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+    }
+
+    public function getCitaByMedico($id)
+    {
+        $medico = Medico::findOrFail($id);
+        $citas = Cita::where('citas.medico_id', $medico->id)->where('agendada', false)->distinct()->get();
+        return view('citas.paciente.infoCita', compact('medico', 'citas'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
 
     public function create()
@@ -45,7 +52,6 @@ class CitaController extends Controller
         $cita = Cita::findOrFail($id);
         return view('citas.edit', compact('cita'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
-
 
     public function store(Request $request)
     {
@@ -62,32 +68,20 @@ class CitaController extends Controller
 
         $cita = new Cita();
         $cita->medico_id = $request->medico;
-
-        switch ($request->dia) {
-            case $request->dia == 'Lunes':
-                $cita->dia = $request->dia;
-                break;
-            case $request->dia == 'Martes':
-                $cita->dia = $request->dia;
-                break;
-            case $request->dia == 'Miércoles':
-                $cita->dia = $request->dia;
-                break;
-            case $request->dia == 'Jueves':
-                $cita->dia = $request->dia;
-                break;
-            case $request->dia == 'Viernes':
-                $cita->dia = $request->dia;
-                break;
-            default:
-                throw new GeneralExceptionError('El valor del campo dia seleccionado no es el correcto');
-        }
+        $cita->dia = $request->dia;
         $cita->hora = $request->hora;
 
         $precio = Str::replaceFirst(',', '.', $request->precio);
         $cita->precio = $precio;
         $cita->agendada = false;
+
+        $citaDia = Cita::where('dia', $request->dia)->where('medico_id', $request->medico)->where('hora', $request->hora)->first();
+        if ($citaDia != null) {
+            return redirect()->back()->withInput()->withErrors('No se puede asignar un cupo al mismo dia ni a la misma hora con este médico');
+        }
+
         $cita->save();
+
         return redirect()->route('citas.create')->with('msg', 'Cupo asignado correctamente');
     }
 
@@ -98,7 +92,7 @@ class CitaController extends Controller
             'medico' => ['required', 'integer'],
             'dia' => ['not_in:0'],
             'hora' => ['required'],
-            'precio' => ['required','numeric'],
+            'precio' => ['required', 'numeric'],
         ]);
 
         if ($validate->fails()) {

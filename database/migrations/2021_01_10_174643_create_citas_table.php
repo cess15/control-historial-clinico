@@ -16,7 +16,7 @@ class CreateCitasTable extends Migration
         Schema::create('citas', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('medico_id')->nullable();
-            $table->enum('dia', ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']);
+            $table->date('dia');
             $table->time('hora');
             $table->boolean('agendada')->default(0);
             $table->double('precio');

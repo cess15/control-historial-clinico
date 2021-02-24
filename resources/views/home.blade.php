@@ -96,11 +96,10 @@
 
             <tr>
                 <th scope="col">Médico</th>
-                <th scope="col">Día</th>
+                <th scope="col">Fecha de cita</th>
                 <th scope="col">Hora</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Estado</th>
-                <th scope="col">Descripción</th>
                 <th scope="col">Fecha de reservación</th>
             </tr>
         </thead>
@@ -143,7 +142,7 @@
 
                 <tr>
                     <th scope="col">Médico</th>
-                    <th scope="col">Día</th>
+                    <th scope="col">Fecha</th>
                     <th scope="col">Hora</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Estado</th>
@@ -176,7 +175,21 @@
 
     @if(Auth::user()->role_id==5)
     @if(Auth::user()->updated)
-    <p>Aqui verá las citas reservadas para cuando venga un paciente a cancelar pueda cambiar su estado a pagada y le aparezca al médico que tiene una consulta por atender</p>
+    <table id="tableCitasReservadas" class="display nowrap table table-bordered table-hover" style="width: 100%;">
+        <thead>
+
+            <tr>
+                <th scope="col">Médico</th>
+                <th scope="col">Paciente</th>
+                <th scope="col">Fecha de cita</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Fecha de reservación</th>
+                <th scope="col">Editar</th>
+            </tr>
+        </thead>
+    </table>
     @else
     <div class="row">
         <div class="col-lg-12">
@@ -248,6 +261,64 @@
 @endpush
 @endif
 
+@if(Auth::user()->role_id==3)
+@push('scripts')
+<script type="text/javascript">
+    $("#tableCitasReservadas").DataTable({
+        proccessing: true,
+        serverSide: true,
+        pageLength: 5,
+        ajax: `{{ route('citasReservadas.data') }}`,
+        type: "GET",
+        responsive:true,
+        autoFill: true,
+        language: {
+            emptyTable: "No hay información",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            infoEmpty: "Mostrando 0 a 0 de 0 registros",
+            infoFiltered: "(Filtrado de _MAX_ total registros)",
+            lengthMenu:
+                "Mostrar <select>" +
+                '<option value="5">5</option>' +
+                '<option value="10">10</option>' +
+                '<option value="15">20</option>' +
+                '<option value="20">40</option>' +
+                "</select> registros",
+            loadingRecords: "Cargando...",
+            processing: "Procesando...",
+            search: "Buscar:",
+            zeroRecords: "Sin resultados encontrados",
+            paginate: {
+                first: "Primero",
+                last: "Ultimo",
+                next: "Siguiente",
+                previous: "Anterior",
+            },
+        },
+        columns: [
+            { data: 'medico'},
+            { data: 'fechaCita'},
+            { data: 'hora'},
+            { data: 'precio'},
+            { data: 'estado'},
+            { data: 'fechaRegistro'},
+        ],
+        rowCallback: function(row, data, index)
+        {
+            if(data.estado==="Reservada"){
+                $(row).find('td:eq(4)').css('color', 'green');
+            }
+            if(data.estado==="Cancelada"){
+                $(row).find('td:eq(4)').css('color', 'red');
+            }
+        }
+    });
+
+
+</script>
+@endpush
+@endif
+
 @if(Auth::user()->role_id==4)
 @push('scripts')
 <script type="text/javascript">
@@ -301,6 +372,66 @@
         }
     }
 });
+</script>
+@endpush
+@endif
+
+@if(Auth::user()->role_id==5)
+@push('scripts')
+<script type="text/javascript">
+    $("#tableCitasReservadas").DataTable({
+        proccessing: true,
+        serverSide: true,
+        pageLength: 5,
+        ajax: `{{ route('citasReservadas.allData') }}`,
+        type: "GET",
+        responsive:true,
+        autoFill: true,
+        language: {
+            emptyTable: "No hay información",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            infoEmpty: "Mostrando 0 a 0 de 0 registros",
+            infoFiltered: "(Filtrado de _MAX_ total registros)",
+            lengthMenu:
+                "Mostrar <select>" +
+                '<option value="5">5</option>' +
+                '<option value="10">10</option>' +
+                '<option value="15">20</option>' +
+                '<option value="20">40</option>' +
+                "</select> registros",
+            loadingRecords: "Cargando...",
+            processing: "Procesando...",
+            search: "Buscar:",
+            zeroRecords: "Sin resultados encontrados",
+            paginate: {
+                first: "Primero",
+                last: "Ultimo",
+                next: "Siguiente",
+                previous: "Anterior",
+            },
+        },
+        columns: [
+            { data: 'medico'},
+            { data: 'paciente'},
+            { data: 'fechaCita'},
+            { data: 'hora'},
+            { data: 'precio'},
+            { data: 'estado'},
+            { data: 'fechaRegistro'},
+            { data: 'botones'},
+        ],
+        rowCallback: function(row, data, index)
+        {
+            if(data.estado==="Reservada"){
+                $(row).find('td:eq(5)').css('color', 'green');
+            }
+            if(data.estado==="Cancelada"){
+                $(row).find('td:eq(5)').css('color', 'red');
+            }
+        }
+    });
+
+
 </script>
 @endpush
 @endif

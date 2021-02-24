@@ -17,5 +17,8 @@ class Cita extends Model
         return $this->belongsTo(Medico::class,'medico_id');
     }
 
-    
+    public function citaReservada()
+    {
+        return $this->hasOne(CitaReservada::class,'cita_id');
+    }
 }

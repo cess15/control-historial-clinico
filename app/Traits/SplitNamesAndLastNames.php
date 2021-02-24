@@ -109,6 +109,16 @@ trait SplitNamesAndLastNames
         setLocale(LC_ALL, 'spanish_ecuador.utf-8');
         $myDate = str_replace("/", "-", $date);
         $newDate = date('d-m-Y H:i:s', strtotime($myDate));
-        return strftime('%A, %d de %B de %T %p', strtotime($newDate));
+        return strftime('%A, %d de %B del %Y a las %T %p', strtotime($newDate));
+        return $newDate;
+    }
+
+    public function convertDateWithoutTimeZone($date)
+    {
+        setLocale(LC_ALL, 'spanish_ecuador.utf-8');
+        $myDate = str_replace("/", "-", $date);
+        $newDate = date('d-m-Y H:i:s', strtotime($myDate));
+        return strftime('%A, %d de %B del %Y', strtotime($newDate));
+        return $newDate;
     }
 }
