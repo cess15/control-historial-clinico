@@ -52,9 +52,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         {{ Form::label('dia', 'Día(*)') }}
-                        {!! Form::select('dia',
-                        ['--Seleccione--','Lunes'=>'Lunes','Martes'=>'Martes','Miércoles'=>'Miércoles','Jueves'=>'Jueves','Viernes'=>'Viernes'],
-                        $cita->dia, ['class'=>'form-control']) !!}
+                        {!! Form::date('dia', $cita->dia, ['class'=>'form-control','min'=>date('Y-m-d')]) !!}
                     </div>
                 </div>
                 <div class="col-md-6">

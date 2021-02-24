@@ -56,7 +56,7 @@
                         <i class="nav-icon fa fa-calendar-alt"></i>
                         <p>
                             Citas Reservadas
-                            <?php $count=App\CitaReservada::all()->count();?>
+                            <?php $count=App\CitaReservada::where('pagada',true)->count();?>
                             <span class="right badge badge-info">{{ $count?? '0' }}</i>
                         </p>
                     </a>
@@ -84,7 +84,8 @@
                         <i class="nav-icon fa fa-calendar-alt"></i>
                         <p>
                             Citas Reservadas
-                            <?php $count=App\CitaReservada::where('paciente_id',Auth::user()->id)->count();?>
+                            <?php $paciente=App\Paciente::where('usuario_id',Auth::user()->id)->get('id'); ?>
+                            <?php $count=App\CitaReservada::where('paciente_id',$paciente[0]->id)->count();?>
                             <span class="right badge badge-info">{{ $count?? '0' }}</i>
                         </p>
                     </a>
