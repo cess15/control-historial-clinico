@@ -62,7 +62,7 @@ Route::group(['middleware' => ['auth', 'verified', 'paciente']], function () {
 	//Paciente
 	Route::get('/reservar/cita', 'CitaController@getEspecialidades')->name('citas.reservar');
 	Route::post('/reservar/cita', 'CitaReservadaController@store')->name('citasReservadas.store');
-	Route::get('/cita-reservada-paciente/all', 'CitaReservadaController@findAll')->name('citasReservadas.data');
+	Route::get('/cita-reservada-paciente/all', 'CitaReservadaController@getCitaReservadaByPaciente')->name('citasReservadas.data');
 	Route::get('/reservar/cita/especialidad/{cita}', 'CitaController@getMedicoByEspecialidad')->name('citas.info');
 	Route::get('/reservar/cita/especialidad/medico/{medico}', 'CitaController@getCitaByMedico')->name('citas.infoMedico');
 	Route::post('/perfil/paciente/', 'PacienteController@store')->name('pacientes.store');
@@ -71,7 +71,7 @@ Route::group(['middleware' => ['auth', 'verified', 'paciente']], function () {
 
 Route::group(['middleware' => ['auth', 'verified', 'secretaria']], function () {
 	//Secretaria
-	Route::get('/citas/all', 'CitaController@getCitaReservadaByPaciente')->name('citas.data');
+	Route::get('/citas/all', 'CitaController@findAll')->name('citas.data');
 	Route::get('/generar/cupo', 'CitaController@create')->name('citas.create');
 	Route::post('/generar/cupo', 'CitaController@store')->name('citas.store');
 	Route::get('/ajax-autocomplete-searchMedic', 'CitaController@searchMedic')->name('citas.medics');
