@@ -18,6 +18,7 @@ class CreateCitasReservadasTable extends Migration
             $table->unsignedInteger('paciente_id')->nullable();
             $table->unsignedInteger('cita_id')->nullable();
             $table->boolean('pagada')->default(0);
+            $table->boolean('atendida')->default(0);
             $table->string('descripcion', 255);
             $table->timestamps();
 

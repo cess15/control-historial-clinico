@@ -57,17 +57,11 @@ class ProfileController extends Controller
         $user->usuario = $request->usuario;
 
         if (!empty($request->password)) {
-            $user->password = bcrypt($request->password);
+            $user->password = Hash::make($request->password, ['rounds' => 12]);
         }
         $user->updated = true;
         $user->update();
         return redirect()->route('perfil.edit')->with('msg', 'Datos guardados correctamente');
-    }
-
-    public function updateInformation(Request $request, Paciente $paciente)
-    {
-        $paciente->direccion = $request->direccion;
-        dd($paciente);
     }
 
     public function postCredentials(Request $request, User $user)
@@ -82,7 +76,7 @@ class ProfileController extends Controller
             return redirect()->back()->withInput()->withErrors($validateCredentials->errors());
         }
 
-        if (Hash::check($request->password, Auth::user()->password,['rounds'=>12])) {
+        if (Hash::check($request->password, Auth::user()->password, ['rounds' => 12])) {
             $user->password = Hash::make($request->newpassword, ['rounds' => 12]);
             $user->updated = true;
             $user->save();

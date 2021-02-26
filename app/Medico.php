@@ -28,6 +28,11 @@ class Medico extends Model
 
     public function cita()
     {
-        return $this->hasOne(Cita::class,'medico_id');
+        return $this->hasOne(Cita::class, 'medico_id');
+    }
+
+    public function consulta()
+    {
+        return $this->hasOne(Consulta::class, 'medico_id');
     }
 }

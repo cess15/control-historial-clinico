@@ -20,10 +20,10 @@ class CitaReservadaController extends Controller
         return view('citasReservadas.index', ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
 
-    public function edit($id)
+    public function show($id)
     {
         $citaReservada = CitaReservada::findOrFail($id);
-        return view('citasReservadas.edit', compact('citaReservada'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+        return view('citasReservadas.show', compact('citaReservada'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
 
     public function store(Request $request)
@@ -41,9 +41,48 @@ class CitaReservadaController extends Controller
         $citaReservada->cita_id = intval($request->horario);
         $citaReservada->descripcion = $request->descripcion;
         $citaReservada->pagada = false;
+        $citaReservada->atendida = false;
         $citaReservada->save();
         Cita::where('id', $request->horario)->update(['agendada' => true]);
         return redirect()->route('citas.reservar')->with('msg', 'Ha reservado una cita correctamente');
+    }
+
+    public function update($id)
+    {
+        CitaReservada::where('id', $id)->update(['pagada' => true]);
+        return redirect()->route('inicio');
+    }
+
+    public function findAll()
+    {
+        $citaReservada = CitaReservada::where('pagada', true)->get();
+        return DataTables::of($citaReservada)
+            ->addColumn('medico', function ($citaReservada) {
+                return $citaReservada->cita->medico->user->nombres . ' ' . $citaReservada->cita->medico->user->apellidos;
+            })
+            ->addColumn('paciente', function ($citaReservada) {
+                return $citaReservada->paciente->user->nombres;
+            })
+            ->addColumn('fechaCita', function ($citaReservada) {
+                return $this->convertDateWithoutTimeZone($citaReservada->cita->dia);
+            })
+            ->addColumn('hora', function ($citaReservada) {
+                return $citaReservada->cita->hora;
+            })
+            ->addColumn('precio', function ($citaReservada) {
+                return '$ ' . $citaReservada->cita->precio;
+            })
+            ->addColumn('estado', function ($citaReservada) {
+                if ($citaReservada->pagada == false) {
+                    return "Reservada";
+                } else {
+                    return "Cancelada";
+                }
+            })
+            ->addColumn('fechaRegistro', function ($citaReservada) {
+                return $this->convertDateWithoutTimeZone($citaReservada->updated_at);
+            })
+            ->make(true);
     }
 
     public function getCitaReservadaByPaciente()
@@ -76,7 +115,7 @@ class CitaReservadaController extends Controller
             ->make(true);
     }
 
-    public function findAll()
+    public function findByPagadaIsFalse()
     {
         $citaReservada = CitaReservada::where('pagada', false)->get();
         return DataTables::of($citaReservada)

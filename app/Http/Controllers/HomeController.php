@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\CitaReservada;
+use App\Historial;
 use App\Medico;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -28,7 +30,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->role_id == 2) {
+            $medico = Medico::where('usuario_id', Auth::user()->id)->first();
+            $citasReservadas = CitaReservada::join('citas', 'citas.id', 'citas_reservadas.cita_id')->where('pagada', true)->where('atendida', false)->where('medico_id', $medico->id)->paginate(6);
+            return view('home', compact('citasReservadas'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+        }
         return view('home', ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
-    
 }

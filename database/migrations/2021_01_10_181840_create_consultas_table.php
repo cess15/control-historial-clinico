@@ -19,7 +19,7 @@ class CreateConsultasTable extends Migration
             $table->unsignedInteger('medico_id')->nullable();
             $table->text('diagnostico');
             $table->text('recomendacion');
-            $table->string('observacion',255);
+            $table->text('observacion');
             $table->timestamps();
 
             $table->foreign('historia_clinica_id')

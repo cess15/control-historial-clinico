@@ -51,7 +51,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('citaReservadas.index') }}"
+                    <a href="{{ route('citasReservadas.index') }}"
                         class="{{ Request::path() === 'citas/reservadas' ? 'nav-link active' : 'nav-link' }}">
                         <i class="nav-icon fa fa-calendar-alt"></i>
                         <p>
@@ -124,7 +124,7 @@
                         <i class="nav-icon fa fa-calendar-alt"></i>
                         <p>
                             Citas Reservadas
-                            <?php $count=App\CitaReservada::all()->count();?>
+                            <?php $count=App\CitaReservada::where('pagada',false)->count();?>
                             <span class="right badge badge-info">{{ $count?? '0' }}</i>
                         </p>
                     </a>

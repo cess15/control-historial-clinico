@@ -25,4 +25,9 @@ class Paciente extends Model
     {
         return $this->hasOne(CitaReservada::class, 'paciente_id');
     }
+
+    public function historial()
+    {
+        return $this->hasOne(Historial::class, 'paciente_id');
+    }
 }
