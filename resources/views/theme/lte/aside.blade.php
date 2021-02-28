@@ -74,6 +74,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('historial.index') }}"
+                        class="{{ Request::path() === 'historial' ? 'nav-link active' : 'nav-link' }}">
+                        <i class="nav-icon fa fa-notes-medical"></i>
+                        <p>
+                            Historial
+                        </p>
+                    </a>
+                </li>
                 @endif
 
                 {{-- Paciente --}}

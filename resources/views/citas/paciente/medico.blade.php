@@ -64,6 +64,9 @@
                 @endforeach
                 @endforeach
             </ul>
+            <div class="card-footer">
+                <div class="pagination justify-content-center m-0">{{ $medicos->links() }}</div>
+            </div>
             @else
             <div class="alert alert-info alert-dismissible">
                 <h5><i class="icon fas fa-info"></i> Aviso!</h5>

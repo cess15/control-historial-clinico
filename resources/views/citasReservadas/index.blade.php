@@ -12,7 +12,6 @@
     </div><!-- /.row -->
     <table id="tableCitas" class="display nowrap table table-bordered table-hover" style="width: 100%;">
         <thead>
-
             <tr>
                 <th scope="col">Paciente</th>
                 <th scope="col">Médico</th>
