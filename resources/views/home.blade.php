@@ -65,7 +65,73 @@
 
     @if(Auth::user()->role_id==2)
     @if(Auth::user()->updated)
-
+    @if(sizeof($citasReservadas)!=0)
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <h1>Citas no atendidas</h1>
+        </div>
+    </div>
+    <div class="card card-solid">
+        <div class="card-body pb-0">
+            <div class="row d-flex align-items-stretch">
+                @foreach($citasReservadas as $citaReservada)
+                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                    <div class="card bg-light">
+                        <div class="card-header text-muted border-bottom-0">
+                            {{ $citaReservada->paciente->ocupacion }}
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="lead">
+                                        <b>{{ $citaReservada->paciente->user->nombres.' '.$citaReservada->paciente->user->apellidos}}</b>
+                                    </h2>
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small"><span class="fa-li"><i
+                                                    class="fas fa-lg fa-building"></i></span> Dirección:
+                                            {{ $citaReservada->paciente->direccion }},
+                                            {{ $citaReservada->paciente->ciudad }}</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span>
+                                            Télefono : {{ $citaReservada->paciente->user->telefono }}</li>
+                                        <li class="small"><span class="fa-li"><i
+                                                    class="fas fa-lg fa-calendar-alt"></i></span> Fecha: <span
+                                                class="info-date">{{ $citaReservada->cita->dia }}</span></li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-clock"></i></span>
+                                            Hora: {{ $citaReservada->cita->hora }}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-5 text-center">
+                                    <img src="{{ $citaReservada->paciente->user->url_imagen_perfil }}"
+                                        alt="img_paciente" class="img-circle img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-right">
+                                <a href="{{ route('citasReservadas.show',$citaReservada->id) }}"
+                                    class="btn btn-sm btn-primary">
+                                    <i class="fas fa-user"></i> Ver detalles
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="pagination justify-content-center m-0">{{ $citasReservadas->links() }}</div>
+        </div>
+    </div>
+    @else
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">Aviso!</h4>
+        <p>Actualmente no tiene citas que atender, en cuánto la tenga, podrá ejercer su trabajo pero por el momento no
+            hay nada que hacer hasta ahora.</p>
+        <hr>
+        <p class="mb-0">De igual manera, esperamos que tenga un excelente día.</p>
+    </div>
+    @endif
     @else
     <div class="row">
         <div class="col-lg-12">
@@ -186,7 +252,7 @@
                 <th scope="col">Precio</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Fecha de reservación</th>
-                <th scope="col">Editar</th>
+                <th scope="col">Pago</th>
             </tr>
         </thead>
     </table>
@@ -261,6 +327,12 @@
 @endpush
 @endif
 
+@if(Auth::user()->role_id==2)
+@push('scripts')
+<script src="{{ asset('/assets/js/convertDate.js') }}"></script>
+@endpush
+@endif
+
 @if(Auth::user()->role_id==3)
 @push('scripts')
 <script type="text/javascript">
@@ -268,7 +340,7 @@
         proccessing: true,
         serverSide: true,
         pageLength: 5,
-        ajax: `{{ route('citasReservadas.data') }}`,
+        ajax: `{{ route('citasReservadas.paciente') }}`,
         type: "GET",
         responsive:true,
         autoFill: true,

@@ -91,6 +91,7 @@ trait SplitNamesAndLastNames
             case 3:
                 $firstLastName = $lastNames[0] . ' ' . $lastNames[1];
                 $secondLastName = $lastNames[2];
+                break;
             default:
                 $firstLastName = $lastNames[0] . ' ' . $lastNames[1];
                 unset($lastNames[0]);
@@ -110,7 +111,6 @@ trait SplitNamesAndLastNames
         $myDate = str_replace("/", "-", $date);
         $newDate = date('d-m-Y H:i:s', strtotime($myDate));
         return strftime('%A, %d de %B del %Y a las %T %p', strtotime($newDate));
-        return $newDate;
     }
 
     public function convertDateWithoutTimeZone($date)
@@ -119,6 +119,5 @@ trait SplitNamesAndLastNames
         $myDate = str_replace("/", "-", $date);
         $newDate = date('d-m-Y H:i:s', strtotime($myDate));
         return strftime('%A, %d de %B del %Y', strtotime($newDate));
-        return $newDate;
     }
 }

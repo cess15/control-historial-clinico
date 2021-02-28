@@ -16,9 +16,9 @@ class CreateDetalleRecetasTable extends Migration
         Schema::create('detalle_recetas', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('receta_id')->nullable();
-            $table->string('prescripcion', 255);
-            $table->string('dosis', 255);
-            $table->string('horario', 255);
+            $table->text('prescripcion');
+            $table->text('dosis');
+            $table->text('horario');
 
             $table->foreign('receta_id')
                 ->references('id')

@@ -48,8 +48,7 @@
                                 <img src="{{ $medico->user->url_imagen_perfil }}" class="img-circle img-sm" width="50px"
                                     height="50px" alt="foto_perfil">
                                 <div class="comment-text">
-                                    <span class="username"><span>Dr. {{$medico->user->apellidos}}
-                                            {{$medico->user->nombres}}</span>
+                                    <span class="username">Dr. <span class="info-title">{{$medico->user->apellidos}} {{$medico->user->nombres}}</span>
                                     </span>
                                     <span>Especialidad: {{ $medico->especialidad->name }}</span>
                                     <br>
@@ -82,6 +81,5 @@
 </div>
 @endsection
 @push('scripts')
-<script src="{{ asset('/assets/js/consultation-medic.js') }}"></script>
-{{-- <script src="{{ asset('/assets/js/filter-medic.js') }}"></script> --}}
+<script src="{{ asset('/assets/js/consultation.js') }}"></script>
 @endpush

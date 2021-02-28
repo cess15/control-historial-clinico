@@ -19,9 +19,9 @@ class CitaController extends Controller
 
     public function getEspecialidades()
     {
-        $especialidadesMedicos = Cita::join('medicos','medicos.id','citas.medico_id')->has('medico')->get();
+        $especialidadesMedicos = Cita::join('medicos', 'medicos.id', 'citas.medico_id')->has('medico')->get();
         $especialidades = Especialidad::orderBy('name', 'ASC')->get();
-        return view('citas.paciente.especialidad', compact('especialidades','especialidadesMedicos'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+        return view('citas.paciente.especialidad', compact('especialidades', 'especialidadesMedicos'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
 
     public function getMedicoByEspecialidad($id)

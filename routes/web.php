@@ -55,14 +55,23 @@ Route::group(['middleware' => ['auth', 'verified', 'administrator']], function (
 	Route::get('/eliminar/{user}/user', 'UserController@delete')->name('users.delete');
 
 	//CitasReservadas
-	Route::get('/citas/reservadas', 'CitaReservadaController@index')->name('citaReservadas.index');
+	Route::get('/citas/reservadas', 'CitaReservadaController@index')->name('citasReservadas.index');
+	Route::get('/citas/reservadas/all', 'CitaReservadaController@findAll')->name('citasReservadas.data');
+});
+
+Route::group(['middleware' => ['auth','verified','medico']], function(){
+	//Médico
+	Route::get('/cita/detalle/{paciente}', 'CitaReservadaController@show')->name('citasReservadas.show');
+	Route::get('/cita/atender/{cita}', 'ConsultaController@create')->name('consultas.create');
+	Route::post('/historial/paciente/{paciente}', 'HistorialController@store')->name('historial.store');
+	Route::post('/cita/atender/{paciente}', 'ConsultaController@store')->name('consultas.store');
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'paciente']], function () {
 	//Paciente
 	Route::get('/reservar/cita', 'CitaController@getEspecialidades')->name('citas.reservar');
 	Route::post('/reservar/cita', 'CitaReservadaController@store')->name('citasReservadas.store');
-	Route::get('/cita-reservada-paciente/all', 'CitaReservadaController@getCitaReservadaByPaciente')->name('citasReservadas.data');
+	Route::get('/cita-reservada-paciente/all', 'CitaReservadaController@getCitaReservadaByPaciente')->name('citasReservadas.paciente');
 	Route::get('/reservar/cita/especialidad/{cita}', 'CitaController@getMedicoByEspecialidad')->name('citas.info');
 	Route::get('/reservar/cita/especialidad/medico/{medico}', 'CitaController@getCitaByMedico')->name('citas.infoMedico');
 	Route::post('/perfil/paciente/', 'PacienteController@store')->name('pacientes.store');
@@ -82,6 +91,6 @@ Route::group(['middleware' => ['auth', 'verified', 'secretaria']], function () {
 
 Route::group(['middleware' => ['auth', 'verified', 'cajero']], function () {
 	//Cajero
-	Route::get('/citas-reservadas/all', 'CitaReservadaController@findAll')->name('citasReservadas.allData');
-	Route::get('/citas-reservadas/edit/{citaReservada}', 'CitaReservadaController@edit')->name('citasReservada.edit');
+	Route::get('/citas-reservadas-cajero/all', 'CitaReservadaController@findByPagadaIsFalse')->name('citasReservadas.allData');
+	Route::get('/citas-reservadas-cajero/edit/{citaReservada}', 'CitaReservadaController@update')->name('citasReservadas.update');
 });

@@ -8,9 +8,9 @@ let options = {
 convertDate(infoDate);
 
 function convertDate(array) {
-    for (let index = 0; index < array.length; index++) {
-        array[index].textContent = parseDate(array[index].textContent);
-    }
+    array.forEach(function(element,index) {
+        element.textContent=parseDate(array[index].textContent);
+    });
 }
 
 function parseDate(string) {

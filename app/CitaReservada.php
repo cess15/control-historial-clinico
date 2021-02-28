@@ -10,7 +10,7 @@ class CitaReservada extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['paciente_id', 'cita_id', 'pagada', 'descripcion', 'created_at', 'updated_at'];
+    protected $fillable = ['paciente_id', 'cita_id', 'pagada', 'atendida', 'descripcion', 'created_at', 'updated_at'];
 
     public function cita()
     {
