@@ -26,13 +26,11 @@ class CitaController extends Controller
 
     public function getMedicoByEspecialidad($id)
     {
-        //Obtener especialidad por id
-        $especialidad = Especialidad::findOrFail($id);
         //Obtener las citas con cupos asignados para un médico con su especialidad y que ya no este agendada
-        $citas = Cita::join('medicos', 'medicos.id', 'citas.medico_id')->where('medicos.especialidad_id', $especialidad->id)->where('agendada', false)->orderBy('dia', 'ASC')->has('medico')->get();
+        $citas = Cita::join('medicos', 'medicos.id', 'citas.medico_id')->where('medicos.especialidad_id', $id)->where('agendada', false)->orderBy('dia', 'ASC')->has('medico')->get();
         //Obtener medico por especialidad
-        $medicos = Medico::where('especialidad_id', $especialidad->id)->get();
-        return view('citas.paciente.medico', compact('especialidad', 'medicos', 'citas'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+        $medicos = Medico::where('especialidad_id', $id)->has('cita')->paginate(5);
+        return view('citas.paciente.medico', compact('medicos', 'citas'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
 
     public function getCitaByMedico($id)

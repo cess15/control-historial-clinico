@@ -18,4 +18,9 @@ class Receta extends Model
     {
         return $this->hasOne(DetalleReceta::class, "receta_id");
     }
+
+    public function consulta()
+    {
+        return $this->belongsTo(Consulta::class, 'consulta_id');
+    }
 }

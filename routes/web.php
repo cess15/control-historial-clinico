@@ -61,25 +61,39 @@ Route::group(['middleware' => ['auth', 'verified', 'administrator']], function (
 
 Route::group(['middleware' => ['auth','verified','medico']], function(){
 	//Médico
+
+	//Rutas para citas
 	Route::get('/cita/detalle/{paciente}', 'CitaReservadaController@show')->name('citasReservadas.show');
 	Route::get('/cita/atender/{cita}', 'ConsultaController@create')->name('consultas.create');
-	Route::post('/historial/paciente/{paciente}', 'HistorialController@store')->name('historial.store');
 	Route::post('/cita/atender/{paciente}', 'ConsultaController@store')->name('consultas.store');
+
+	//Rutas para historial clinico
+	Route::get('/historial', 'HistorialController@index')->name('historial.index');
+	Route::post('/historial/paciente/{paciente}', 'HistorialController@store')->name('historial.store');
+	Route::get('/historial/paciente/{paciente}', 'HistorialController@show')->name('historial.show');
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'paciente']], function () {
 	//Paciente
+
+	//Rutas para reservar citas
 	Route::get('/reservar/cita', 'CitaController@getEspecialidades')->name('citas.reservar');
 	Route::post('/reservar/cita', 'CitaReservadaController@store')->name('citasReservadas.store');
 	Route::get('/cita-reservada-paciente/all', 'CitaReservadaController@getCitaReservadaByPaciente')->name('citasReservadas.paciente');
 	Route::get('/reservar/cita/especialidad/{cita}', 'CitaController@getMedicoByEspecialidad')->name('citas.info');
 	Route::get('/reservar/cita/especialidad/medico/{medico}', 'CitaController@getCitaByMedico')->name('citas.infoMedico');
+	
+	
+
+	//Rutas para el perfil de paciente
 	Route::post('/perfil/paciente/', 'PacienteController@store')->name('pacientes.store');
 	Route::post('/perfil/paciente/{paciente}', 'PacienteController@update')->name('pacientes.update');
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'secretaria']], function () {
 	//Secretaria
+
+	//Rutas para generar cupos
 	Route::get('/citas/all', 'CitaController@findAll')->name('citas.data');
 	Route::get('/generar/cupo', 'CitaController@create')->name('citas.create');
 	Route::post('/generar/cupo', 'CitaController@store')->name('citas.store');

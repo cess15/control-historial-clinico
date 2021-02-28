@@ -14,11 +14,16 @@ class Consulta extends Model
 
     public function historial()
     {
-        return $this->belongsTo(Historial::class,'historia_clinica_id');
+        return $this->belongsTo(Historial::class, 'historia_clinica_id');
     }
 
     public function medico()
     {
         return $this->belongsTo(Medico::class, 'medico_id');
+    }
+
+    public function receta()
+    {
+        return $this->hasOne(Receta::class, 'consulta_id');
     }
 }

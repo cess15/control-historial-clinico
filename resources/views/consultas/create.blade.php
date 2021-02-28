@@ -19,7 +19,7 @@
             <div class="card-title">Datos de la consulta</div>
         </div>
         <div class="card-body">
-            {!! Form::open(['route'=>['consultas.store',$paciente->id], 'method'=>'POST']) !!}
+            {!! Form::open(['route'=>['consultas.store',$citaReservada->paciente->id], 'method'=>'POST']) !!}
             {!! Form::token() !!}
             <div class="row">
                 <div class="col-md-6">
@@ -51,6 +51,15 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        {!! Form::label('prescripcion', 'Prescripción') !!}
+                                        {!! Form::textarea('prescripcion', null, ['class'=>'form-control','rows'=>5])
+                                        !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {!! Form::label('dosis', 'Dosis') !!}
@@ -60,16 +69,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {!! Form::label('horario', 'Horario') !!}
-                                        {!! Form::text('horario', null, ['class'=>'form-control']) !!}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        {!! Form::label('prescripcion', 'Prescripción') !!}
-                                        {!! Form::textarea('prescripcion', null, ['class'=>'form-control','rows'=>5])
-                                        !!}
+                                        {!! Form::textarea('horario', null, ['class'=>'form-control','rows'=>5]) !!}
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <a href="{{ route('citasReservadas.show',$paciente->id) }}"><button type="button"
+                        <a href="{{ route('citasReservadas.show',$citaReservada->paciente->id) }}"><button type="button"
                                 class="btn btn-primary float-left">Atrás</button></a>
                         <button type="submit" class="btn btn-primary float-right">Finalizar consulta</button>
                     </div>

@@ -15,6 +15,12 @@ class ConsultaController extends Controller
 {
     use SplitNamesAndLastNames;
 
+    public function showViewCajero()
+    {
+        $consultas=Consulta::has('receta')->get();
+        return view('consultas.cajero.index', compact('consultas'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+    }
+
     public function create($id)
     {
         $citaReservada = CitaReservada::findOrFail($id);
@@ -39,17 +45,18 @@ class ConsultaController extends Controller
         $receta->save();
 
         $detalleReceta = new DetalleReceta();
-        $detalleReceta->receta_id=$receta->id;
-        $detalleReceta->prescripcion=$request->prescripcion;
-        $detalleReceta->dosis=$request->dosis;
-        $detalleReceta->horario=$request->horario;
+        $detalleReceta->receta_id = $receta->id;
+        $detalleReceta->prescripcion = $request->prescripcion;
+        $detalleReceta->dosis = $request->dosis;
+        $detalleReceta->horario = $request->horario;
         $detalleReceta->save();
         return redirect()->route('inicio');
     }
 
-    public function recetar($id)
+    
+
+    public function obtenerConsultasCajero()
     {
-        $receta = Receta::findOrFail($id);
-        return view('consultas.recetas.create', compact('receta'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+        $consultas=Consulta::all();
     }
 }
