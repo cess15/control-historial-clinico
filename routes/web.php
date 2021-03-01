@@ -57,9 +57,10 @@ Route::group(['middleware' => ['auth', 'verified', 'administrator']], function (
 	//CitasReservadas
 	Route::get('/citas/reservadas', 'CitaReservadaController@index')->name('citasReservadas.index');
 	Route::get('/citas/reservadas/all', 'CitaReservadaController@findAll')->name('citasReservadas.data');
+	Route::post('/citas/reservadas/reporte/', 'CitaReservadaController@getReport')->name('citasReservadas.report');
 });
 
-Route::group(['middleware' => ['auth','verified','medico']], function(){
+Route::group(['middleware' => ['auth', 'verified', 'medico']], function () {
 	//Médico
 
 	//Rutas para citas
@@ -82,8 +83,8 @@ Route::group(['middleware' => ['auth', 'verified', 'paciente']], function () {
 	Route::get('/cita-reservada-paciente/all', 'CitaReservadaController@getCitaReservadaByPaciente')->name('citasReservadas.paciente');
 	Route::get('/reservar/cita/especialidad/{cita}', 'CitaController@getMedicoByEspecialidad')->name('citas.info');
 	Route::get('/reservar/cita/especialidad/medico/{medico}', 'CitaController@getCitaByMedico')->name('citas.infoMedico');
-	
-	
+
+
 
 	//Rutas para el perfil de paciente
 	Route::post('/perfil/paciente/', 'PacienteController@store')->name('pacientes.store');

@@ -98,28 +98,8 @@ class CitaController extends Controller
         }
 
         $cita->medico_id = $request->medico;
-
-        switch ($request->dia) {
-            case $request->dia == 'Lunes':
-                $cita->dia = $request->dia;
-                break;
-            case $request->dia == 'Martes':
-                $cita->dia = $request->dia;
-                break;
-            case $request->dia == 'Miércoles':
-                $cita->dia = $request->dia;
-                break;
-            case $request->dia == 'Jueves':
-                $cita->dia = $request->dia;
-                break;
-            case $request->dia == 'Viernes':
-                $cita->dia = $request->dia;
-                break;
-            default:
-                throw new GeneralExceptionError('El valor del campo dia seleccionado no es el correcto');
-        }
+        $cita->dia = $request->dia;
         $cita->hora = $request->hora;
-
         $precio = Str::replaceFirst(',', '.', $request->precio);
         $cita->precio = $precio;
         $cita->agendada = false;

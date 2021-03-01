@@ -169,6 +169,7 @@ return [
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         Tavo\EcLaravelValidator\EcValidatorServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -232,7 +233,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-        
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

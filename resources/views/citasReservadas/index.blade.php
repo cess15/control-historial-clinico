@@ -10,6 +10,54 @@
             <h1 class="m-0 text-dark">Lista de Citas Reservadas</h1>
         </div><!-- /.col -->
     </div><!-- /.row -->
+    @if(session('msg'))
+    <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h5><i class="icon fas fa-times-circle"></i>Lo sentimos</h5>
+        <ul>
+            <li>{{ session("msg") }}</li>
+        </ul>
+    </div>
+    @endif
+    @if ($errors->any())
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h5><i class="icon fas fa-exclamation-triangle"></i>Error</h5>
+        <ul>
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    <div class="row">
+        <div class="col-md-6">
+            {!! Form::open(['route' => ['citasReservadas.report'], 'method' => 'POST','target'=>'_blank']) !!}
+            {!! Form::token() !!}
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {!! Form::label('fechaInicio', 'Fecha de Inicio') !!}
+                        {!! Form::date('fechaInicio', null, ['class'=>'form-control']) !!}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        {!! Form::label('fechaFinal', 'Fecha Final') !!}
+                        {!! Form::date('fechaFinal', null, ['class'=>'form-control']) !!}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group mt-2">
+                        <button type="submit" class="btn btn-primary mt-4">Generar reporte</button>
+                    </div>
+                </div>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+
+
     <table id="tableCitas" class="display nowrap table table-bordered table-hover" style="width: 100%;">
         <thead>
             <tr>
