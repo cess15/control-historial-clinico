@@ -19,7 +19,18 @@
             <div class="card-title">Datos de la consulta</div>
         </div>
         <div class="card-body">
-            {!! Form::open(['route'=>['consultas.store',$citaReservada->paciente->id], 'method'=>'POST']) !!}
+            @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h5><i class="icon fas fa-exclamation-triangle"></i>Error</h5>
+                <ul>
+                    @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+            {!! Form::open(['route'=>['consultas.store',$citaReservada->id], 'method'=>'POST']) !!}
             {!! Form::token() !!}
             <div class="row">
                 <div class="col-md-6">
@@ -45,44 +56,10 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="card card-success">
-                        <div class="card-header">
-                            <div class="card-title">Datos de la receta</div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        {!! Form::label('prescripcion', 'Prescripción') !!}
-                                        {!! Form::textarea('prescripcion', null, ['class'=>'form-control','rows'=>5])
-                                        !!}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        {!! Form::label('dosis', 'Dosis') !!}
-                                        {!! Form::textarea('dosis', null, ['class'=>'form-control','rows'=>5]) !!}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        {!! Form::label('horario', 'Horario') !!}
-                                        {!! Form::textarea('horario', null, ['class'=>'form-control','rows'=>5]) !!}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
                     <div class="form-group">
-                        <a href="{{ route('citasReservadas.show',$citaReservada->paciente->id) }}"><button type="button"
+                        <a href="{{ route('citasReservadas.show',$citaReservada->id) }}"><button type="button"
                                 class="btn btn-primary float-left">Atrás</button></a>
-                        <button type="submit" class="btn btn-primary float-right">Finalizar consulta</button>
+                        <button type="submit" class="btn btn-primary float-right">Siguiente</button>
                     </div>
                 </div>
             </div>

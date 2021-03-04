@@ -72,6 +72,10 @@ Route::group(['middleware' => ['auth', 'verified', 'medico']], function () {
 	Route::get('/historial', 'HistorialController@index')->name('historial.index');
 	Route::post('/historial/paciente/{paciente}', 'HistorialController@store')->name('historial.store');
 	Route::get('/historial/paciente/{paciente}', 'HistorialController@show')->name('historial.show');
+
+	//Recetas
+	Route::get('/recetar/paciente/{paciente}', 'RecetaController@create')->name('recetas.create');
+	Route::post('/recetar/paciente/{paciente}', 'RecetaController@store')->name('recetas.store');
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'paciente']], function () {
@@ -106,6 +110,18 @@ Route::group(['middleware' => ['auth', 'verified', 'secretaria']], function () {
 
 Route::group(['middleware' => ['auth', 'verified', 'cajero']], function () {
 	//Cajero
+
+	//Citas Reservadas
 	Route::get('/citas-reservadas-cajero/all', 'CitaReservadaController@findByPagadaIsFalse')->name('citasReservadas.allData');
 	Route::get('/citas-reservadas-cajero/edit/{citaReservada}', 'CitaReservadaController@update')->name('citasReservadas.update');
+
+	//Consultas
+	Route::get('/recetas/especialidad', 'RecetaController@index')->name('recetas.index');
+	Route::get('/recetas/especialidad/{especialidad}', 'RecetaController@showViewEspecialidad')->name('recetas.showViewEspecialidad');
+	Route::get('/recetas/especialidad/medico/{medico}', 'RecetaController@getMedico')->name('recetas.getMedico');
+	Route::get('/recetas/especialidad/medico/consulta/{consulta}', 'RecetaController@getConsulta')->name('recetas.getConsulta');
+	
+	Route::get('/recetas/generar/{receta}', 'RecetaController@generate')->name('recetas.generar');
+
+
 });

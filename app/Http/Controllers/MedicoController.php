@@ -139,7 +139,7 @@ class MedicoController extends Controller
 
     public function findAll()
     {
-        $medicos = Medico::has('user');
+        $medicos = Medico::has('user')->get();
         return DataTables::of($medicos)
             ->addColumn('cedula', function ($medico) {
                 return $medico->user->cedula != null ? $medico->user->cedula : '';
