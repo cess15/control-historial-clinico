@@ -4,59 +4,49 @@ namespace App\Http\Controllers;
 
 use App\CitaReservada;
 use App\Consulta;
-use App\DetalleReceta;
+use App\Especialidad;
 use App\Paciente;
-use App\Receta;
 use App\Traits\SplitNamesAndLastNames;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ConsultaController extends Controller
 {
     use SplitNamesAndLastNames;
 
-    public function showViewCajero()
+    public function create($citaReservada_id)
     {
-        $consultas=Consulta::has('receta')->get();
-        return view('consultas.cajero.index', compact('consultas'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
-    }
-
-    public function create($id)
-    {
-        $citaReservada = CitaReservada::findOrFail($id);
+        $citaReservada = CitaReservada::findOrFail($citaReservada_id);
         $paciente = Paciente::where('id', $citaReservada->paciente->id)->has('historial')->first();
-        return view('consultas.create', compact('citaReservada', 'paciente'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
+        return view('consultas.create', compact('paciente','citaReservada'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
 
-    public function store(Request $request, Consulta $consulta, $paciente_id)
+    public function store(Request $request, Consulta $consulta, $citaReservada_id)
     {
-        $paciente = Paciente::findOrFail($paciente_id);
+        $validate = Validator::make($request->all(), [
+            'diagnostico' => ['required'],
+            'recomendacion' => ['required'],
+            'observacion' => ['required'],
+        ]);
+
+        if ($validate->fails()) {
+            return redirect()->back()->withInput()->withErrors($validate->errors());
+        }
+
+        $citaReservada = CitaReservada::findOrFail($citaReservada_id);
+        $paciente = Paciente::where('id', $citaReservada->paciente->id)->has('historial')->first();
+        
         $consulta->historia_clinica_id = $paciente->historial->id;
         $consulta->medico_id = $paciente->citaReservada->cita->medico->id;
         $consulta->diagnostico = $request->diagnostico;
         $consulta->recomendacion = $request->recomendacion;
         $consulta->observacion = $request->observacion;
+
+        $citaReservada->atendida = true;
+        $citaReservada->save();
         $consulta->save();
 
-        CitaReservada::where('id', $paciente->citaReservada->id)->update(['atendida' => true]);
-        $receta = new Receta();
-        $receta->consulta_id = $consulta->id;
-        $receta->fecha_expedicion = $consulta->created_at;
-        $receta->save();
-
-        $detalleReceta = new DetalleReceta();
-        $detalleReceta->receta_id = $receta->id;
-        $detalleReceta->prescripcion = $request->prescripcion;
-        $detalleReceta->dosis = $request->dosis;
-        $detalleReceta->horario = $request->horario;
-        $detalleReceta->save();
-        return redirect()->route('inicio');
-    }
-
-    
-
-    public function obtenerConsultasCajero()
-    {
-        $consultas=Consulta::all();
+        return redirect()->route('recetas.create',$consulta->id);
     }
 }

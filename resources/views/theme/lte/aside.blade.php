@@ -138,6 +138,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('recetas.index') }}"
+                        class="{{ Request::path() === 'recetas/especialidad' ? 'nav-link active' : 'nav-link' }}">
+                        <i class="nav-icon fa fa-calendar-alt"></i>
+                        <p>
+                            Recetas
+                        </p>
+                    </a>
+                </li>
                 @endif
             </ul>
         </nav>

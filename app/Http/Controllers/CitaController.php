@@ -55,7 +55,7 @@ class CitaController extends Controller
     {
         $validate = Validator::make($request->all(), [
             'medico' => ['required', 'integer'],
-            'dia' => ['not_in:0'],
+            'dia' => ['required'],
             'hora' => ['required'],
             'precio' => ['required', 'numeric'],
         ]);
@@ -88,7 +88,7 @@ class CitaController extends Controller
         $cita = Cita::findOrFail($id);
         $validate = Validator::make($request->all(), [
             'medico' => ['required', 'integer'],
-            'dia' => ['not_in:0'],
+            'dia' => ['required'],
             'hora' => ['required'],
             'precio' => ['required', 'numeric'],
         ]);
@@ -102,7 +102,6 @@ class CitaController extends Controller
         $cita->hora = $request->hora;
         $precio = Str::replaceFirst(',', '.', $request->precio);
         $cita->precio = $precio;
-        $cita->agendada = false;
         $cita->save();
         return redirect()->route('citas.edit', $cita->id)->with('msg', 'Cupo actualizado correctamente');
     }

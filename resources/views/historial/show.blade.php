@@ -27,6 +27,7 @@
                     <div class="card-text">
                         <h5>Médico tratante:
                             {{ $consulta->medico->user->nombres.' '.$consulta->medico->user->apellidos }}</h5>
+                        <p>Fecha: <span class="info-date-tz">{{ $consulta->created_at }}</span></p>
                     </div>
                     <div class="card-text">
                         <h5>Diágnostico:</h5>
@@ -58,3 +59,6 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+    <script src="{{ asset('/assets/js/convertDate.js') }}"></script>
+@endpush

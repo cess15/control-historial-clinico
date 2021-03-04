@@ -32,7 +32,7 @@
     @endif
     <div class="row">
         <div class="col-md-6">
-            {!! Form::open(['route' => ['citasReservadas.report'], 'method' => 'POST','target'=>'_blank']) !!}
+            {!! Form::open(['route' => ['citasReservadas.report'], 'method' => 'POST']) !!}
             {!! Form::token() !!}
             <div class="row">
                 <div class="col-md-4">
