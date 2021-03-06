@@ -92,8 +92,6 @@
     <script src="{{ asset('/assets/lte/plugins/select2/js/select2.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('/assets/lte/dist/js/adminlte.js') }}"></script>
-    {{-- Bootstrap switch --}}
-    <script src="{{ asset('/assets/lte/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
     <!-- My script -->
     @stack('scripts')
 </body>
