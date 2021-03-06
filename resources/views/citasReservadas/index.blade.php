@@ -61,8 +61,8 @@
     <table id="tableCitas" class="display nowrap table table-bordered table-hover" style="width: 100%;">
         <thead>
             <tr>
-                <th scope="col">Paciente</th>
                 <th scope="col">Médico</th>
+                <th scope="col">Paciente</th>
                 <th scope="col">Fecha de cita</th>
                 <th scope="col">Hora</th>
                 <th scope="col">Precio</th>
