@@ -30,21 +30,23 @@
                         class="ml-2">Nuevo médico</span></i></a>
         </div>
     </div>
-    <table id="tableMedic" class="display nowrap table table-bordered table-hover" style="width: 100%;">
-        <thead>
-
-            <tr>
-                <th scope="col">Cédula</th>
-                <th scope="col">Nombres</th>
-                <th scope="col">Apellidos</th>
-                <th scope="col">Correo electrónico</th>
-                <th scope="col">Número célular</th>
-                <th scope="col">Género</th>
-                <th scope="col">Especialidad</th>
-                <th scope="col">Acciones</th>
-            </tr>
-        </thead>
-    </table>
+    <div class="table-responsive">
+        <table id="tableMedic" class="display nowrap table table-bordered table-hover" style="width: 100%;">
+            <thead>
+    
+                <tr>
+                    <th scope="col">Cédula</th>
+                    <th scope="col">Nombres</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Correo electrónico</th>
+                    <th scope="col">Número célular</th>
+                    <th scope="col">Género</th>
+                    <th scope="col">Especialidad</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
     @else
     <div class="row">
         <div class="col-lg-12">
@@ -157,19 +159,20 @@
             <h1 class="m-0 text-dark">Mis citas reservadas</h1>
         </div><!-- /.col -->
     </div><!-- /.row -->
-    <table id="tableCitasReservadas" class="display nowrap table table-bordered table-hover" style="width: 100%;">
-        <thead>
-
-            <tr>
-                <th scope="col">Médico</th>
-                <th scope="col">Fecha de cita</th>
-                <th scope="col">Hora</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Fecha de reservación</th>
-            </tr>
-        </thead>
-    </table>
+    <div class="table-responsive">
+        <table id="tableCitasReservadas" class="display nowrap table table-bordered table-hover" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th scope="col">Médico</th>
+                    <th scope="col">Fecha de cita</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha de reservación</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
     @else
     <div class="row">
         <div class="col-lg-12">
@@ -241,21 +244,23 @@
 
     @if(Auth::user()->role_id==5)
     @if(Auth::user()->updated)
-    <table id="tableCitasReservadas" class="display nowrap table table-bordered table-hover" style="width: 100%;">
-        <thead>
-
-            <tr>
-                <th scope="col">Médico</th>
-                <th scope="col">Paciente</th>
-                <th scope="col">Fecha de cita</th>
-                <th scope="col">Hora</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Fecha de reservación</th>
-                <th scope="col">Pago</th>
-            </tr>
-        </thead>
-    </table>
+    <div class="table-responsive">
+        <table id="tableCitasReservadas" class="display nowrap table table-bordered table-hover" style="width: 100%;">
+            <thead>
+    
+                <tr>
+                    <th scope="col">Médico</th>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Fecha de cita</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha de reservación</th>
+                    <th scope="col">Pago</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
     @else
     <div class="row">
         <div class="col-lg-12">
@@ -288,7 +293,6 @@
     ajax: `{{ route('medicos.data') }}`,
     type: "GET",
     autoFill: true,
-    responsive: true,
     language: {
         emptyTable: "No hay información",
         info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
@@ -342,7 +346,6 @@
         pageLength: 5,
         ajax: `{{ route('citasReservadas.paciente') }}`,
         type: "GET",
-        responsive:true,
         autoFill: true,
         language: {
             emptyTable: "No hay información",
@@ -400,7 +403,6 @@
     pageLength: 5,
     ajax: `{{ route('citas.data') }}`,
     type: "GET",
-    responsive:true,
     autoFill: true,
     language: {
         emptyTable: "No hay información",
@@ -457,7 +459,6 @@
         pageLength: 5,
         ajax: `{{ route('citasReservadas.allData') }}`,
         type: "GET",
-        responsive:true,
         autoFill: true,
         language: {
             emptyTable: "No hay información",

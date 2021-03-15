@@ -57,32 +57,33 @@
         </div>
     </div>
 
-
-    <table id="tableCitas" class="display nowrap table table-bordered table-hover" style="width: 100%;">
-        <thead>
-            <tr>
-                <th scope="col">Médico</th>
-                <th scope="col">Paciente</th>
-                <th scope="col">Fecha de cita</th>
-                <th scope="col">Hora</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Fecha de pago</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-        <tfoot>
-            <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>Total:</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </tfoot>
-    </table>
+    <div class="table-responsive">
+        <table id="tableCitas" class="display nowrap table table-bordered table-hover" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th scope="col">Médico</th>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Fecha de cita</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha de pago</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Total:</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
     @endif
 </div>
 @endsection
@@ -95,7 +96,6 @@
         pageLength: 5,
         ajax: `{{ route('citasReservadas.data') }}`,
         type: "GET",
-        responsive:true,
         autoFill: true,
         language: {
             emptyTable: "No hay información",

@@ -44,7 +44,6 @@
     pageLength: 5,
     ajax: `{{ route('users.data') }}`,
     type: "GET",
-    responsive:true,
     autoFill: true,
     language: {
         emptyTable: "No hay información",
