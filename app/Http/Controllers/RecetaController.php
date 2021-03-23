@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Consulta;
 use App\DetalleReceta;
 use App\Especialidad;
+use App\Mail\RecetaMail;
 use App\Medico;
+use App\Notifications\RecetaEmailNotification;
 use App\Receta;
 use App\Traits\SplitNamesAndLastNames;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class RecetaController extends Controller
 {
@@ -31,7 +35,7 @@ class RecetaController extends Controller
     public function getMedico($medico_id)
     {
         $medico = Medico::findOrFail($medico_id);
-        $consultas = Consulta::where('medico_id', $medico_id)->has('receta')->orderBy('created_at','ASC')->paginate(6);
+        $consultas = Consulta::where('medico_id', $medico_id)->has('receta')->orderBy('created_at', 'ASC')->paginate(6);
         return view('recetas.consultas', compact('consultas', 'medico'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
 
@@ -45,8 +49,7 @@ class RecetaController extends Controller
     {
         $receta = Receta::findOrFail($receta_id);
         $pdf = App::make('dompdf.wrapper');
-        return $pdf->loadView('reportes.receta', compact('receta'))->setPaper('a4','landscape')->stream();
-        
+        return $pdf->loadView('reportes.receta', compact('receta'))->setPaper('a4', 'landscape')->stream();
     }
 
     public function create($consulta_id)
@@ -69,7 +72,17 @@ class RecetaController extends Controller
             $detalleReceta->dosis = $request->dosis;
             $detalleReceta->horario = $request->horario;
             $detalleReceta->save();
+            $this->enviarCorreo($receta->id);
         }
         return redirect()->route('inicio');
+    }
+
+    public function enviarCorreo($recetaId)
+    {
+        $receta = Receta::findOrFail($recetaId);
+        $pdf = App::make('dompdf.wrapper');
+        $output = $pdf->loadView('reportes.receta', compact('receta'))->output();
+        Mail::to($receta->consulta->historial->paciente->user->email)
+            ->send(new RecetaMail($receta, $output));
     }
 }

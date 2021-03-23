@@ -400,15 +400,6 @@
     <header>
         <h1 align="center">CENTRO DE ATENCIÓN Y FORMACIÓN EN SALUD INTEGRAL</h1>
     </header>
-    <?php 
-        function convertDateWithoutTimeZone($date)
-        {
-            setLocale(LC_ALL, 'spanish_ecuador.utf-8');
-            $myDate = str_replace("/", "-", $date);
-            $newDate = date('d-m-Y H:i:s', strtotime($myDate));
-            return strftime('%A, %d de %B del %Y', strtotime($newDate));
-        }
-    ?>
     <div class="container">
         <h1 align="center">"CARLOS LUIS MORALES REINA"</h1>
         <hr>
@@ -417,7 +408,7 @@
         <p><b>Nombre:
             </b><span>{{ $receta->consulta->historial->paciente->user->nombres.' '.$receta->consulta->historial->paciente->user->apellidos}}
             </span></p>
-        <p><b>Fecha: </b><span>{{ convertDateWithoutTimeZone($receta->fecha_expedicion) }}</span></p>
+        <p><b>Fecha: </b><span>{{ $receta->convertDateWithoutTimeZone($receta->fecha_expedicion) }}</span></p>
     </div>
     <div class="container">
         <table class="table table-bordered">

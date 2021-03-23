@@ -73,7 +73,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-5">
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
@@ -95,6 +95,12 @@
                                     <b>Discapacidad</b> <a
                                         class="float-right">{{ $citaReservada->paciente->discapacidad!=false ? 'Si' :'No' }}</a>
                                 </li>
+                                @if($citaReservada->paciente->discapacidad==true)
+                                <li class="list-group-item"><b>Tipo de discapacidad</b> <a
+                                        class="float-right">{{ $citaReservada->paciente->tipo_discapacidad }}</a></li>
+                                <li class="list-group-item"><b>Porcentaje de discapacidad</b> <a
+                                        class="float-right">{{ $citaReservada->paciente->porcentaje.'%' }}</a></li>
+                                @endif
                                 <li class="list-group-item">
                                     <b>Edad</b> <a
                                         class="float-right info-edad">{{ $citaReservada->paciente->fecha_nacimiento }}</a>
@@ -107,7 +113,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-7">
                     <div class="card">
                         <div class="card-header p-2">Datos del historial clinico</div>
                         <div class="card-body">
@@ -163,6 +169,18 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if($citaReservada->paciente->discapacidad==true)
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                {!! Form::label('descripcion', 'Descripción') !!}
+                                                {!! Form::textarea('descripcion', null,
+                                                ['class'=>'form-control','rows'=>8]) !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @if($citaReservada->paciente->discapacidad==false)
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
@@ -172,7 +190,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    @endif
+                                    <div class="row mt-2">
                                         <div class="col">
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary">Guardar datos</button>

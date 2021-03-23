@@ -27,21 +27,30 @@ class PacienteController extends Controller
             return redirect()->back()->withInput()->withErrors($validate->errors());
         }
 
-        $paciente->usuario_id=Auth::user()->id;
-        $paciente->direccion=$request->direccion;
-        $paciente->ciudad=$request->ciudad;
-        $paciente->tipo_sangre=$request->tipo_sangre;
-        $paciente->estado_civil=$request->estado_civil;
-        $paciente->ocupacion=$request->ocupacion;
-        if($request->fecha_nacimiento<=date('Y')){
-            $paciente->fecha_nacimiento=$request->fecha_nacimiento;
-        } else{
+        $paciente->usuario_id = Auth::user()->id;
+        $paciente->direccion = $request->direccion;
+        $paciente->ciudad = $request->ciudad;
+        $paciente->tipo_sangre = $request->tipo_sangre;
+        $paciente->estado_civil = $request->estado_civil;
+        $paciente->ocupacion = $request->ocupacion;
+        if ($request->fecha_nacimiento <= date('Y')) {
+            $paciente->fecha_nacimiento = $request->fecha_nacimiento;
+        } else {
             throw new GeneralExceptionError("La fecha que esta seleccionando es inválida");
         }
-        $paciente->discapacidad=$request->discapacidad;
+        if ($request->discapacidad == 1) {
+            $paciente->discapacidad = $request->discapacidad;
+            $paciente->tipo_discapacidad = $request->tipo_discapacidad;
+            $paciente->porcentaje = intval($request->porcentaje);
+        } 
+        if($request->discapacidad == 0){
+            $paciente->tipo_discapacidad = null;
+            $paciente->porcentaje = null;
+            $paciente->discapacidad = $request->discapacidad;
+        }
         $paciente->save();
-        $user=User::findOrFail($paciente->usuario_id);
-        $user->updated=true;
+        $user = User::findOrFail($paciente->usuario_id);
+        $user->updated = true;
         $user->save();
         return redirect()->route('perfil.edit')->with('msg', 'Datos actualizados correctamente');
     }
@@ -62,17 +71,26 @@ class PacienteController extends Controller
             return redirect()->back()->withInput()->withErrors($validate->errors());
         }
 
-        $paciente->direccion=$request->direccion;
-        $paciente->ciudad=$request->ciudad;
-        $paciente->tipo_sangre=$request->tipo_sangre;
-        $paciente->estado_civil=$request->estado_civil;
-        $paciente->ocupacion=$request->ocupacion;
-        if($request->fecha_nacimiento<=date('Y')){
-            $paciente->fecha_nacimiento=$request->fecha_nacimiento;
-        } else{
+        $paciente->direccion = $request->direccion;
+        $paciente->ciudad = $request->ciudad;
+        $paciente->tipo_sangre = $request->tipo_sangre;
+        $paciente->estado_civil = $request->estado_civil;
+        $paciente->ocupacion = $request->ocupacion;
+        if ($request->fecha_nacimiento <= date('Y')) {
+            $paciente->fecha_nacimiento = $request->fecha_nacimiento;
+        } else {
             throw new GeneralExceptionError("La fecha que esta seleccionando es inválida o es mayor al año actual");
         }
-        $paciente->discapacidad=$request->discapacidad;
+        if ($request->discapacidad == 1) {
+            $paciente->discapacidad = $request->discapacidad;
+            $paciente->tipo_discapacidad = $request->tipo_discapacidad;
+            $paciente->porcentaje = intval($request->porcentaje);
+        } 
+        if($request->discapacidad == 0){
+            $paciente->tipo_discapacidad = null;
+            $paciente->porcentaje = null;
+            $paciente->discapacidad = $request->discapacidad;
+        }
         $paciente->save();
         return redirect()->route('perfil.edit')->with('msg', 'Datos actualizados correctamente');
     }
