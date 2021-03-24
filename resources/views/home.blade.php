@@ -110,7 +110,7 @@
                         </div>
                         <div class="card-footer">
                             <div class="text-right">
-                                <a href="{{ route('citasReservadas.show',$citaReservada->id) }}"
+                                <a href="{{ route('citasReservadas.show',$citaReservada->cita->id) }}"
                                     class="btn btn-sm btn-primary">
                                     <i class="fas fa-user"></i> Ver detalles
                                 </a>
