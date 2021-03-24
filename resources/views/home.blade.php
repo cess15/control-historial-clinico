@@ -33,7 +33,7 @@
     <div class="table-responsive">
         <table id="tableMedic" class="display nowrap table table-bordered table-hover" style="width: 100%;">
             <thead>
-    
+
                 <tr>
                     <th scope="col">Cédula</th>
                     <th scope="col">Nombres</th>
@@ -247,7 +247,7 @@
     <div class="table-responsive">
         <table id="tableCitasReservadas" class="display nowrap table table-bordered table-hover" style="width: 100%;">
             <thead>
-    
+
                 <tr>
                     <th scope="col">Médico</th>
                     <th scope="col">Paciente</th>
