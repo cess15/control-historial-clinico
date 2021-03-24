@@ -23,4 +23,12 @@ class Receta extends Model
     {
         return $this->belongsTo(Consulta::class, 'consulta_id');
     }
+
+    public function convertDateWithoutTimeZone($date)
+    {
+        setLocale(LC_ALL, 'spanish_ecuador.utf-8');
+        $myDate = str_replace("/", "-", $date);
+        $newDate = date('d-m-Y H:i:s', strtotime($myDate));
+        return strftime('%A, %d de %B del %Y', strtotime($newDate));
+    }
 }

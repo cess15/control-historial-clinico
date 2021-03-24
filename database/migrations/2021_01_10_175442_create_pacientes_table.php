@@ -18,6 +18,8 @@ class CreatePacientesTable extends Migration
             $table->unsignedInteger('usuario_id')->nullable();
             $table->enum('tipo_sangre', ['O-', 'O+', 'A-', 'A+', 'B-', 'B+', 'AB-', 'AB+'])->nullable();
             $table->boolean('discapacidad')->default(0);
+            $table->enum('tipo_discapacidad', ['Discapacidad Física', 'Discapacidad Sensorial', 'Discapacidad Intelectual', 'Discapacidad Psíquica', 'Discapacidad Visceral', 'Discapacidad Múltiple'])->nullable();
+            $table->integer('porcentaje')->nullable();
             $table->date('fecha_nacimiento');
             $table->string('ocupacion', 255);
             $table->string('direccion', 45);

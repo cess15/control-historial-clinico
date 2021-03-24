@@ -11,7 +11,7 @@
         </div>
         <div class="card-body pb-0">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-5">
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
@@ -27,24 +27,35 @@
 
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Tipo de sangre</b> <a class="float-right">{{ $citaReservada->paciente->tipo_sangre}}</a>
+                                    <b>Tipo de sangre</b> <a
+                                        class="float-right">{{ $citaReservada->paciente->tipo_sangre}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Discapacidad</b> <a class="float-right">{{ $citaReservada->paciente->discapacidad!=false ? 'Si' :'No' }}</a>
+                                    <b>Discapacidad</b> <a
+                                        class="float-right">{{ $citaReservada->paciente->discapacidad!=false ? 'Si' :'No' }}</a>
+                                </li>
+                                @if($citaReservada->paciente->discapacidad==true)
+                                <li class="list-group-item"><b>Tipo de discapacidad</b> <a
+                                        class="float-right">{{ $citaReservada->paciente->tipo_discapacidad }}</a></li>
+                                <li class="list-group-item"><b>Porcentaje de discapacidad</b> <a
+                                        class="float-right">{{ $citaReservada->paciente->porcentaje.'%' }}</a></li>
+                                @endif
+                                <li class="list-group-item">
+                                    <b>Edad</b> <a
+                                        class="float-right info-edad">{{ $citaReservada->paciente->fecha_nacimiento }}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Edad</b> <a class="float-right info-edad">{{ $citaReservada->paciente->fecha_nacimiento }}</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Estado Civil</b> <a class="float-right">{{ $citaReservada->paciente->estado_civil }}</a>
+                                    <b>Estado Civil</b> <a
+                                        class="float-right">{{ $citaReservada->paciente->estado_civil }}</a>
                                 </li>
                             </ul>
-                            <a href="{{ route('consultas.create',$citaReservada->id) }}" class="btn btn-primary btn-block"><b>Atender</b></a>
+                            <a href="{{ route('consultas.create',$citaReservada->id) }}"
+                                class="btn btn-primary btn-block"><b>Atender</b></a>
                         </div>
                         <!-- /.card-body -->
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-7">
                     <div class="card">
                         <div class="card-header p-2">Datos del paciente</div>
                         <div class="card-body">
@@ -57,7 +68,9 @@
                                         </div>
                                         <div class="col"></div>
                                         <div class="col">
-                                            <p><b>Fecha: </b><span class="info-date">{{ $citaReservada->cita->dia }}</span> a las {{ $citaReservada->cita->hora }}</p>
+                                            <p><b>Fecha: </b><span
+                                                    class="info-date">{{ $citaReservada->cita->dia }}</span> a las
+                                                {{ $citaReservada->cita->hora }}</p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -66,7 +79,8 @@
                                         </div>
                                         <div class="col"></div>
                                         <div class="col">
-                                            <p><b>Correo electrónico: </b> {{ $citaReservada->paciente->user->email }}</p>
+                                            <p><b>Correo electrónico: </b> {{ $citaReservada->paciente->user->email }}
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -85,13 +99,26 @@
                                         <div class="col"></div>
                                         <div class="col">
                                             <p><b>Ciudad: </b>{{ $citaReservada->paciente->ciudad }}</p>
-                                        </div>                                        
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p><b>Descripción: </b>{!! Form::textarea('descripcion', $citaReservada->descripcion, ['class'=>'form-control','rows'=>4,'disabled'=>'disabled']) !!}</p>
                                         </div>
                                     </div>
+                                    @if($citaReservada->paciente->discapacidad==true)
+                                    <div class="row">
+                                        <div class="col">
+                                            <p><b>Descripción: </b>{!! Form::textarea('descripcion',
+                                                $citaReservada->descripcion,
+                                                ['class'=>'form-control','rows'=>8,'disabled'=>'disabled']) !!}</p>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @if($citaReservada->paciente->discapacidad==false)
+                                    <div class="row">
+                                        <div class="col">
+                                            <p><b>Descripción: </b>{!! Form::textarea('descripcion',
+                                                $citaReservada->descripcion,
+                                                ['class'=>'form-control','rows'=>5,'disabled'=>'disabled']) !!}</p>
+                                        </div>
+                                    </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -101,7 +128,7 @@
             <div class="row mb-2">
                 <div class="col">
                     <a href="{{ route('inicio') }}"><button type="button"
-                                class="btn btn-primary float-left">Atrás</button></a>
+                            class="btn btn-primary float-left">Atrás</button></a>
                 </div>
             </div>
         </div>

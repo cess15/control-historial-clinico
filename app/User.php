@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Medico;
 use App\Notifications\MedicoEmailNotification;
+use App\Notifications\RecetaEmailNotification;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -80,4 +81,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new CustomEmailNotification);
     }
+
+   
 }
