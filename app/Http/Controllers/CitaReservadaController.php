@@ -38,7 +38,7 @@ class CitaReservadaController extends Controller
         if (sizeof($citasReservadas) != 0) {
             $suma = CitaReservada::join('citas', 'citas.id', 'citas_reservadas.cita_id')->where('pagada', true)->where('atendida', true)->whereBetween('citas_reservadas.updated_at', [$fechaInicio, $fechaFinal])->sum('citas.precio');
             $pdf = App::make('dompdf.wrapper');
-            return $pdf->loadView('reportes.index', compact('citasReservadas', 'suma', 'fechaInicio', 'fechaFinal'))->setPaper('a4','landscape')->download('reporte.pdf');
+            return $pdf->loadView('reportes.index', compact('citasReservadas', 'suma', 'fechaInicio', 'fechaFinal'))->setPaper('a4', 'landscape')->download('reporte.pdf');
         } else {
             return redirect()->route('citasReservadas.index')->with('msg', 'No se encontraron registros');
         }
@@ -46,7 +46,8 @@ class CitaReservadaController extends Controller
 
     public function show($id)
     {
-        $citaReservada = CitaReservada::findOrFail($id);
+        $cita = Cita::findOrFail($id);
+        $citaReservada = CitaReservada::findOrFail($cita->citaReservada->id);
         return view('citasReservadas.show', compact('citaReservada'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
 

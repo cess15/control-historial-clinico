@@ -33,9 +33,8 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::user()->role_id == 2) {
-            $medico = Medico::where('usuario_id', Auth::user()->id)->get(['id']);
-            $citasReservadas = CitaReservada::join('citas', 'citas_reservadas.id', 'citas.id')->where('pagada', true)->where('atendida', false)->where('medico_id', $medico[0]->id)->paginate(6);
-
+            $medico = Medico::findOrFail(Auth::user()->medico->id);
+            $citasReservadas = CitaReservada::join('citas', 'citas.id','=','citas_reservadas.cita_id')->where('pagada', true)->where('atendida', false)->where('medico_id', $medico->id)->paginate(6);
             return view('home', compact('citasReservadas'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
         }
         return view('home', ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
