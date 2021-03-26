@@ -421,14 +421,15 @@
             </thead>
             <tbody>
                 <tr>
-                    <td align="center">
-                        {{ $receta->detalleReceta->prescripcion }}
+                    <td>
+                        <p>{!! nl2br(e($receta->detalleReceta->prescripcion)) !!}</p>
                     </td>
-                    <td align="center">
-                        {{ $receta->detalleReceta->dosis }}
+                    <td>
+                        <p>{!! nl2br(e($receta->detalleReceta->dosis)) !!}</p>
                     </td>
-                    <td align="center">
-                        {{ $receta->detalleReceta->horario }}</td>
+                    <td>
+                        <p>{!! nl2br(e($receta->detalleReceta->horario)) !!}</p>
+                    </td>
                 </tr>
             </tbody>
         </table>
