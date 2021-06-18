@@ -76,6 +76,9 @@ Route::group(['middleware' => ['auth', 'verified', 'medico']], function () {
 	//Recetas
 	Route::get('/recetar/paciente/{paciente}', 'RecetaController@create')->name('recetas.create');
 	Route::post('/recetar/paciente/{paciente}', 'RecetaController@store')->name('recetas.store');
+	Route::get('/recetar/pacientes/{paciente}', 'RecetaController@show')->name('recetas.show');
+    Route::get('/receta/generar/{receta}', 'RecetaController@generate')->name('recetas.generarReceta');
+
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'paciente']], function () {
@@ -120,7 +123,7 @@ Route::group(['middleware' => ['auth', 'verified', 'cajero']], function () {
 	Route::get('/recetas/especialidad/{especialidad}', 'RecetaController@showViewEspecialidad')->name('recetas.showViewEspecialidad');
 	Route::get('/recetas/especialidad/medico/{medico}', 'RecetaController@getMedico')->name('recetas.getMedico');
 	Route::get('/recetas/especialidad/medico/consulta/{consulta}', 'RecetaController@getConsulta')->name('recetas.getConsulta');
-	
+
 	Route::get('/recetas/generar/{receta}', 'RecetaController@generate')->name('recetas.generar');
 
 
