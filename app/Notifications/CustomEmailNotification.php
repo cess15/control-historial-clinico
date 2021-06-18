@@ -18,7 +18,7 @@ class CustomEmailNotification extends VerifyEmail
 
     public function __construct()
     {
-    
+
     }
 
     /**

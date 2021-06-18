@@ -74,7 +74,13 @@ class RecetaController extends Controller
             $detalleReceta->save();
             $this->enviarCorreo($receta->id);
         }
-        return redirect()->route('inicio');
+        return redirect()->route('recetas.show', $receta->id);
+    }
+
+    public function show($receta_id)
+    {
+        $receta = Receta::findOrFail($receta_id);
+        return view('recetas.showRecetaForMedic', compact('receta'), ['name' => $this->splitName(Auth::user()->nombres), 'lastName' => $this->splitLastName(Auth::user()->apellidos)]);
     }
 
     public function enviarCorreo($recetaId)
